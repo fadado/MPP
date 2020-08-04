@@ -24,9 +24,7 @@
  # Assume 'mpp' filename extension.
  #>&
 <%define partial
-    <%defeval _prtl
-        <\%defeval _prtl <\%include "$1.mpp"> >
-    ><%_prtl><%_prtl "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"><%undef _prtl>
+    <%defext _prtl "$1.mpp"><%_prtl "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"><%undef _prtl>
 >&
 <#
  # Usage: <%scan text>
