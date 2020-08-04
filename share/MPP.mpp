@@ -11,9 +11,9 @@
  # Equivalent to: <%defeval name <%include file>>
  #>&
 <%define defext
-    <%defeval _dfnxtrnl
-        <\%defeval $1 <\%include "$2"> >
-    ><%_dfnxtrnl><%undef _dfnxtrnl>
+    <%defeval _dfxt
+        <\%defeval $1 <\%include "$2">>
+    ><%_dfxt><%undef _dfxt>
 >&
 <#
  # Usage: <%partial file arg...>
@@ -24,7 +24,9 @@
  # Assume 'mpp' filename extension.
  #>&
 <%define partial
-    <%defext _prtl "$1.mpp"><%_prtl "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"><%undef _prtl>
+    <%defext _prtl "$1.mpp"
+    ><%_prtl "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
+    ><%undef _prtl>
 >&
 <#
  # Usage: <%scan text>

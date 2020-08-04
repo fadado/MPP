@@ -80,27 +80,27 @@ print-%: ; @echo $* = $($*)
 # Tests
 ########################################################################
 
-all: check
-check: test-mpmd
+clean: ; rm -f tests/generated/*
 
-.PHONY: check
+.PHONY: header test-mpmd
 
-clean:: ; rm -f tests/generated/*
+all: header test-mpmd
 
-.PHONY: test-mpmd
+header:
+	@echo =========================
+	@echo Macro Processing Markdown 
+	@echo =========================
 
-define TestMacroExpand
 # Run one example
-test-$(2)-%.$(1):
-	echo "==> expand: $$(subst test-,,$$(basename $$@))"
-	./mpp < tests/$$(subst test-,,$$@) > tests/generated/$$(subst test-,,$$@)
-	diff tests/expected/$$(subst test-,,$$@) tests/generated/$$(subst test-,,$$@)
-# Run one example named without file suffix
-test-$(2)-%: test-$(2)-%.$(1) ;
-# Run all tests
-test-$(2): $(sort $(subst tests/,test-,$(wildcard tests/$(2)-[0-9][0-9].$(1))))
-endef
+test-mpmd-%.md:
+	echo "==> $(subst test-,,$(basename $@))"
+	./mpp < tests/$(subst test-,,$@) > tests/generated/$(subst test-,,$@)
+	diff tests/expected/$(subst test-,,$@) tests/generated/$(subst test-,,$@)
 
-$(eval $(call TestMacroExpand,md,mpmd))
+# Run one example named without file suffix
+test-mpmd-%: test-mpmd-%.md ;
+
+# Run all tests
+test-mpmd: $(sort $(subst tests/,test-,$(wildcard tests/mpmd-[0-9][0-9].md)))
 
 # vim:ai:sw=8:ts=8:noet:syntax=make
