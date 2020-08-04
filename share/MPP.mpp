@@ -1,0 +1,61 @@
+<#
+ # MPP prelude file
+ #
+ #>&
+<# Quote character, only for this file #>&
+<%mode quote "\\">&
+<#
+ # Usage: <%defext name file>... <%name arg...>
+ #
+ # Define name as a macro with contents of $2 as a body.
+ # Equivalent to: <%defeval name <%include file>>
+ #>&
+<%define defext
+    <%defeval _dfnxtrnl
+        <\%defeval $1 <\%include "$2"> >
+    ><%_dfnxtrnl><%undef _dfnxtrnl>
+>&
+<#
+ # Usage: <%partial file arg...>
+ #
+ # Equivalent to: <%defext name file><%name arg...>
+ #
+ # Like include but passing (up to 8) parameters to the included file.
+ # Assume 'mpp' filename extension.
+ #>&
+<%define partial
+    <%defeval _prtl
+        <\%defeval _prtl <\%include "$1.mpp"> >
+    ><%_prtl><%_prtl "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"><%undef _prtl>
+>&
+<#
+ # Usage: <%scan text>
+ #
+ # Evaluate text with macro calls.
+ #>&
+<%define scan
+    <%defeval _scn $1><%_scn><%undef _scn>
+>&
+<#
+ # Usage: <%call name arg...>
+ #
+ # Call a macro by name.
+ #>&
+<%define call
+    <%defeval _cll
+       <\%$1 "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9">
+    ><%_cll><%undef _cll>
+>&
+<#
+ # Usage: <%append name text>
+ #
+ # Equivalent to: <%defeval name <%name>text>
+ #>&
+<%define append
+    <%defeval _ppdn
+        <\%defeval $1 <\%$1>$2>
+    ><%_ppdn><%undef _ppdn>
+>&
+<#
+vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
+#>&

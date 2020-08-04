@@ -1,6 +1,6 @@
-# Markdown PreProcessor
+# Markdown Pre-Processor
 
-A Markdown pre-processor implemented on top of [GPP].
+A Markdown macro processor implemented on top of [GPP].
 
 <p><b>Warning:</b> work in progress!</p>
 
