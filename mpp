@@ -1,47 +1,25 @@
-#!/bin/bash
+#!/bin/sh
 
 # mpp - Markdown macro processor
 
-########################################################################
-# Bash options
-########################################################################
+readonly LIB="share/MPP.mpp"
+readonly INC="./share"
 
-# Safety
-set -o errexit -o pipefail -o nounset -o noclobber
-
-# Bash extensions
-set +o posix
-shopt -s lastpipe
-
-########################################################################
-#
-########################################################################
-
-declare -r lib="share/MPP.mpp"
-
-function MPP
+MPP ()
 {
-    local -r -a user=( -U '<%' '\W>' '\B' '\B' '\W>' '<' '>' '$' '' )
-    local -r -a meta=( -M '<%' '\W>' '\B' '\B' '\W>' '<' '>' )
-
-    local -r -a skips=(
-        +siic '<#' '#>' ''          # multiline comment (only outside macros)
-        +sccc '&\n' '' ''           # continuation line (& and \n removed)
-        +siqi "'" "'" '\'           # literal string (only on user macros)
-        +siQi '"' '"' '\'           # interpolated string  (only on user macros)
-        +siis '<!--' '-->' ''       # preserved XML comments
-        +siis '`'  '`' ''           # MarkDown code regions
-        +siis '\n```' '\n```' ''
-        +siis '\n~~~' '\n~~~' ''
-    )
-
-    gpp --nostdinc          \
-        --warninglevel 2    \
-        "${user[@]}"        \
-        "${meta[@]}"        \
-        "${skips[@]}"       \
-        --include "$lib"    \
-        -I ./share          \
+    gpp --warninglevel 2                                \
+        -U '<%' '\W>' '\B' '\B' '\W>' '<' '>' '$' ''    \
+        +siic '<#' '#>' ''                              \
+        +sccc '&\n' '' ''                               \
+        +siqi "'" "'" '\'                               \
+        +siQi '"' '"' '\'                               \
+        +siis '<!--' '-->' ''                           \
+        +siis '`'  '`' ''                               \
+        +siis '\n```' '\n```' ''                        \
+        +siis '\n~~~' '\n~~~' ''                        \
+        --nostdinc                                      \
+        -I "$INC"                                       \
+        --include "$LIB"                                \
         "$@"
 }
 
