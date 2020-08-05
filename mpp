@@ -25,14 +25,14 @@ function MPP
     local -r -a meta=( -M '<%' '\W>' '\B' '\B' '\W>' '<' '>' )
 
     local -r -a skips=(
+        +siic '<#' '#>' ''          # multiline comment (only outside macros)
         +sccc '&\n' '' ''           # continuation line (& and \n removed)
-        +sccc '<#' '#>' ''          # multiline comment
-        +siqi "'" "'" '\'           # literal string; like sh single quotes
-        +siQi '"' '"' '\'           # interpolated string; like sh double quotes
-        +ssss '<!--' '-->' ''       # preserved XML comments
-        +ssss '`'  '`' ''           # MarkDown code regions
-        +ssss '\n```' '\n```' ''
-        +ssss '\n~~~' '\n~~~' ''
+        +siqi "'" "'" '\'           # literal string (only on user macros)
+        +siQi '"' '"' '\'           # interpolated string  (only on user macros)
+        +siis '<!--' '-->' ''       # preserved XML comments
+        +siis '`'  '`' ''           # MarkDown code regions
+        +siis '\n```' '\n```' ''
+        +siis '\n~~~' '\n~~~' ''
     )
 
     gpp --nostdinc          \

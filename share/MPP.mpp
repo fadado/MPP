@@ -1,60 +1,65 @@
-<#
+<#######################################################################
  # MPP prelude file
- #
- #>&
-<# Quote character, only for this file #>&
+ #####################################################################>&
+<# Current syntax specification:
+    <%mode user "<%" "\W>" "\B" "\B" "\W>" "<" ">" "$" "">
+    <%mode meta "<%" "\W>" "\B" "\B" "\W>" "<" ">">
+#>&
+<# Set a quote character only for this file #>&
 <%mode quote "\\">&
-<#
- # Usage: <%defext name file>... <%name arg...>
- #
- # Define name as a macro with contents of $2 as a body.
- # Equivalent to: <%defeval name <%include file>>
- #>&
-<%define defext
-    <%defeval _dfxt
-        <\%defeval $1 <\%include "$2">>
-    ><%_dfxt><%undef _dfxt>
->&
-<#
- # Usage: <%partial file arg...>
- #
- # Equivalent to: <%defext name file><%name arg...>
- #
- # Like include but passing (up to 8) parameters to the included file.
- # Assume 'mpp' filename extension.
- #>&
-<%define partial
-    <%defext _prtl "$1.mpp"
-    ><%_prtl "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
-    ><%undef _prtl>
->&
-<#
- # Usage: <%scan text>
- #
- # Evaluate text with macro calls.
- #>&
-<%define scan
-    <%defeval _scn $1><%_scn><%undef _scn>
->&
-<#
- # Usage: <%call name arg...>
+<#######################################################################
+ # <%call name arg...>
  #
  # Call a macro by name.
  #>&
 <%define call
-    <%defeval _cll
+    <%defeval _call_
        <\%$1 "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9">
-    ><%_cll><%undef _cll>
+    ><%_call_><%undef _call_>
 >&
-<#
- # Usage: <%append name text>
+<#########################################################################
+ # <%defext name file>... <%name arg...>
+ #
+ # Define name as a macro with contents of file as a body.
+ # Equivalent to: <%defeval name <%include file>>
+ #>&
+<%define defext
+    <%defeval _defext_
+        <\%defeval $1
+            <\%include "$2">
+        >
+    ><%_defext_><%undef _defext_>
+>&
+<#########################################################################
+ # <%code file syntax>
+ #
+ # Create a code block with file contents
+ #>&
+<%define code
+    <%defext _code_ "$1">```$2
+<%_code_>
+```<%undef _code_>
+>&
+<#########################################################################
+ # <%import file arg...>
+ #
+ # Like include but passing (up to 8) parameters to the included file.
+ # Assume 'mpp' filename extension.
+ #>&
+<%define import
+    <%defext _import_ "$1.mpp"
+    ><%_import_ "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
+    ><%undef _import_>
+>&
+<#########################################################################
+ # <%append name text>
  #
  # Equivalent to: <%defeval name <%name>text>
  #>&
 <%define append
-    <%defeval _ppdn
+    <%defeval _append_
         <\%defeval $1 <\%$1>$2>
-    ><%_ppdn><%undef _ppdn>
+    ><%_append_><%undef _append_>
 >&
 <#
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
