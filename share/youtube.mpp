@@ -1,5 +1,5 @@
 <#
- # Usage: <%partial youtube tcKkdNvJvAQ 560 315>
+ # Usage: <%load youtube tcKkdNvJvAQ 560 315>
  #
  # $1: ID
  # $2: width

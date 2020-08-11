@@ -1,6 +1,6 @@
 <# code block example #>&
 <%mode comment iiC "[[" "]]\n">&
-[[ <# strings and comments not allowed inside this block #>
+[[
     <%define A Al last!>
     <%define CC $1<%A>$2>
     <%define B <%call $1$1 [ ]>>

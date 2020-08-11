@@ -1,5 +1,5 @@
 <#
- # Usage: <%partial analytics UA-82432866-1>
+ # Usage: <%load analytics UA-82432866-1>
  #
  # $1: analytics UA
  #>&

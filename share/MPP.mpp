@@ -4,6 +4,12 @@
 <# Set a quote character only for this file #>&
 <%mode quote "\\">&
 <#######################################################################
+ # <%null>
+ #
+ #  The null macro: expands to nothing
+ #>&
+<%define null>&
+<#######################################################################
  # <%call name arg...>
  #
  # Call a macro by name.
@@ -37,15 +43,15 @@
 ```<%undef _code_>
 >&
 <#########################################################################
- # <%import file arg...>
+ # <%load file arg...>
  #
  # Like include but passing (up to 8) parameters to the included file.
  # Assume 'mpp' filename extension.
  #>&
-<%define import
-    <%defext _import_ "$1.mpp"
-    ><%_import_ "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
-    ><%undef _import_>
+<%define load
+    <%defext _load_ "$1.mpp"
+    ><%_load_ "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
+    ><%undef _load_>
 >&
 <#########################################################################
  # <%append name text>
@@ -57,6 +63,6 @@
         <\%defeval $1 <\%$1>$2>
     ><%_append_><%undef _append_>
 >&
-<#
+<#######################################################################
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
 #>&
