@@ -1,13 +1,13 @@
 #!/bin/sh
 
-# mpp - Markdown macro processor
+# mpp - Markdown preprocessor
 
 readonly LIB="share/MPP.mpp"
 readonly INC="./share"
 
 MPP ()
 {
-    gpp --warninglevel 2                                \
+    gpp -x --warninglevel 2                             \
         -U '<%' '\W>' '\B' '\B' '\W>' '<' '>' '$' ''    \
         +sccc '&\n' '' ''                               \
         +siic '<#' '#>' ''                              \

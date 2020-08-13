@@ -6,62 +6,69 @@
 <#######################################################################
  # <%null>
  #
- #  The null macro: expands to nothing
+ # The null macro: expands to nothing
  #>&
 <%define null>&
+<#######################################################################
+ # <%incr n>
+ #
+ # Increment/Decrement n
+ #>&
+<%define incr <%eval $1 + 1>>&
+<%define decr <%eval $1 - 1>>&
 <#######################################################################
  # <%call name arg...>
  #
  # Call a macro by name.
  #>&
 <%define call
-    <%defeval _call_
+    <%defeval __call
        <\%$1 "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9">
-    ><%_call_><%undef _call_>
+    ><%__call><%undef __call>
 >&
-<#########################################################################
+<#######################################################################
  # <%defext name file>... <%name arg...>
  #
  # Define name as a macro with contents of file as a body.
  # Equivalent to: <%defeval name <%include file>>
  #>&
 <%define defext
-    <%defeval _defext_
+    <%defeval __defext
         <\%defeval $1
             <\%include "$2">
         >
-    ><%_defext_><%undef _defext_>
+    ><%__defext><%undef __defext>
 >&
-<#########################################################################
+<#######################################################################
  # <%code file syntax>
  #
  # Create a code block with file contents
  #>&
 <%define code
-    <%defext _code_ "$1">```$2
-<%_code_>
-```<%undef _code_>
+    <%defext __code "$1">```$2
+<%__code>
+```<%undef __code>
 >&
-<#########################################################################
+<#######################################################################
  # <%load file arg...>
  #
  # Like include but passing (up to 8) parameters to the included file.
  # Assume 'mpp' filename extension.
  #>&
 <%define load
-    <%defext _load_ "$1.mpp"
-    ><%_load_ "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
-    ><%undef _load_>
+    <%defext __load "$1.mpp"
+    ><%__load "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
+    ><%undef __load>
 >&
-<#########################################################################
+<#######################################################################
  # <%append name text>
  #
  # Equivalent to: <%defeval name <%name>text>
  #>&
 <%define append
-    <%defeval _append_
+    <%defeval __append
         <\%defeval $1 <\%$1>$2>
-    ><%_append_><%undef _append_>
+    ><%__append><%undef __append>
 >&
 <#######################################################################
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl

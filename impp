@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# impp - Interactive Markdown preprocessor
+
+PROMPT='>%> '
+COLOUR=yellow
+
+exec rlwrap --prompt-colour="$COLOUR"       \
+            --substitute-prompt="$PROMPT"   \
+            "${0%impp}mpp" "$@"
+
+# vim:ts=4:sw=4:ai:et:fileencoding=utf-8:syntax=sh
