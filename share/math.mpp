@@ -1,0 +1,16 @@
+<#######################################################################
+ # Mathematical related macros
+ # Usage: <%import math>
+ #####################################################################>
+
+<#######################################################################
+ # <%incr n>
+ #
+ # Increment/Decrement n
+ #>
+<%define incr <%eval $1 + 1>>
+<%define decr <%eval $1 - 1>>
+
+<#
+vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
+#>

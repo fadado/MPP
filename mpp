@@ -2,29 +2,29 @@
 
 # mpp - Markdown preprocessor
 
-readonly LIB="share/MPP.mpp"
-readonly INC="./share"
+readonly PRELUDE="share/_prelude.mpp"
+readonly INCLUDE="./share"
+readonly ENVIRON="-DUID=$UID -DHOME=$HOME -DPWD='$PWD' -DLANG=$LANG -DPID=$$"
 
-MPP ()
-{
-    gpp -x --warninglevel 2                             \
-        -U '<%' '\W>' '\B' '\B' '\W>' '<' '>' '$' ''    \
-        +sccc '&\n' '' ''                               \
-        +siic '<#' '#>' ''                              \
-        +siqi "'" "'" '\'                               \
-        +siQi '"' '"' '\'                               \
-        +siis '<!--' '-->' ''                           \
-        +siis '`'  '`' ''                               \
-        +siis '\n```' '\n```' ''                        \
-        +siis '\n~~~' '\n~~~' ''                        \
-        --nostdinc                                      \
-        -I "$INC"                                       \
-        --include "$LIB"                                \
-        "$@"
-}
+exec gpp \
+    -U '<%' '\W>' '\B' '\B' '\W>' '<' '>' '$' '' \
+    +sccc '&\n' '' ''           \
+    +siic '<#' '#>' ''          \
+    +siqi "'" "'" ''            \
+    +siQi '"' '"' ''            \
+    +siis '<!--' '-->' ''       \
+    +siis '`'  '`' ''           \
+    +siis '\n```' '\n```' ''    \
+    +siis '\n~~~' '\n~~~' ''    \
+    -x -m                       \
+    --warninglevel 2            \
+    --nostdinc                  \
+    -I "$INCLUDE"               \
+    --include "$PRELUDE"        \
+    $ENVIRON                    \
+    "$@"
 
-MPP "$@"
-
-exit 0
+# no reached
+exit 1
 
 # vim:ts=4:sw=4:ai:et:fileencoding=utf-8:syntax=sh

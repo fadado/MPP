@@ -2,8 +2,18 @@
 
 # impp - Interactive Markdown preprocessor
 
-PROMPT='>%> '
+PROMPT='%>> '
 COLOUR=yellow
+
+
+echo ' _____ ___ ___ '
+echo '|     | , | , |'
+echo '|_|_|_|  _|  _|'
+echo '      |_| |_|  '
+echo
+echo "Welcome to MPP 0.1 on $(uname -mo)"
+echo 'Copyright (c) Joan Josep Ordinas Rosa (2020) <joan.ordinas@pm.me>'
+echo
 
 exec rlwrap --prompt-colour="$COLOUR"       \
             --substitute-prompt="$PROMPT"   \

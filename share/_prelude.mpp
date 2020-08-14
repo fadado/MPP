@@ -10,13 +10,6 @@
  #>&
 <%define null>&
 <#######################################################################
- # <%incr n>
- #
- # Increment/Decrement n
- #>&
-<%define incr <%eval $1 + 1>>&
-<%define decr <%eval $1 - 1>>&
-<#######################################################################
  # <%call name arg...>
  #
  # Call a macro by name.
@@ -27,27 +20,28 @@
     ><%__call><%undef __call>
 >&
 <#######################################################################
- # <%defext name file>... <%name arg...>
+ # Usage: <%import file>
+ #
+ # Equivalent to: <%defeval _ <%include file.mpp>><%undef _>
+ #
+ #>&
+<%define import
+    <%defeval __import
+        <\%defeval __import <\%include "$1.mpp">>
+    ><%__import><%undef __import>
+>&
+<#######################################################################
+ # <%_defext name file>... <%name arg...>
  #
  # Define name as a macro with contents of file as a body.
  # Equivalent to: <%defeval name <%include file>>
  #>&
-<%define defext
+<%define _defext
     <%defeval __defext
         <\%defeval $1
             <\%include "$2">
         >
     ><%__defext><%undef __defext>
->&
-<#######################################################################
- # <%code file syntax>
- #
- # Create a code block with file contents
- #>&
-<%define code
-    <%defext __code "$1">```$2
-<%__code>
-```<%undef __code>
 >&
 <#######################################################################
  # <%load file arg...>
@@ -56,19 +50,19 @@
  # Assume 'mpp' filename extension.
  #>&
 <%define load
-    <%defext __load "$1.mpp"
+    <%_defext __load "$1.mpp"
     ><%__load "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
     ><%undef __load>
 >&
 <#######################################################################
- # <%append name text>
+ # <%code file syntax>
  #
- # Equivalent to: <%defeval name <%name>text>
+ # Create a code block with file contents
  #>&
-<%define append
-    <%defeval __append
-        <\%defeval $1 <\%$1>$2>
-    ><%__append><%undef __append>
+<%define code
+    <%_defext __code "$1">```$2
+<%__code>
+```<%undef __code>
 >&
 <#######################################################################
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
