@@ -57,13 +57,12 @@
 <#######################################################################
  # <%code file syntax>
  #
- # Create a code block with file contents
- # TODO: include without expansion???
+ # Create a code block with (no expanded) file contents
  #>&
 <%define code
-    <%_defext __code "$1">```$2
-<%__code>
-```<%undef __code>
+    ```$2
+<%exec cat "$1">
+```
 >&
 <#######################################################################
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
