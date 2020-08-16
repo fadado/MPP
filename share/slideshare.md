@@ -1,5 +1,5 @@
 <#
- # Usage: <%load slideshare FOuwiWHTdrs1OJ 595 485>
+ # Usage: <%partial slideshare FOuwiWHTdrs1OJ 595 485>
  #
  # $1: ID
  # $2: width

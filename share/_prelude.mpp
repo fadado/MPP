@@ -44,16 +44,24 @@
     ><%__defext><%undef __defext>
 >&
 <#######################################################################
- # <%load file arg...>
+ # <%partial file arg...>
  #
  # Like include but passing (up to 8) parameters to the included file.
- # Assume 'mpp' filename extension.
+ # Assume 'md' filename extension.
  #>&
-<%define load
-    <%_defext __load "$1.mpp"
-    ><%__load "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
-    ><%undef __load>
+<%define partial
+    <%defeval __partial
+        <~%defeval __partial <~%include "$1.md">>
+    ><%__partial><%__partial "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
+    ><%undef __partial>
 >&
+<# OLD:
+<%define partial
+    <%_defext __partial "$1.md"
+    ><%__partial "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
+    ><%undef __partial>
+>
+#>&
 <#######################################################################
  # <%code file syntax>
  #
