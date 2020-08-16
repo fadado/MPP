@@ -2,7 +2,7 @@
  # MPP prelude file
  #####################################################################>&
 <# Set a quote character only for this file #>&
-<%mode quote "\\">&
+<%mode quote "~">&
 <#######################################################################
  # <%null>
  #
@@ -16,7 +16,7 @@
  #>&
 <%define call
     <%defeval __call
-       <\%$1 "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9">
+       <~%$1 "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9">
     ><%__call><%undef __call>
 >&
 <#######################################################################
@@ -27,7 +27,7 @@
  #>&
 <%define import
     <%defeval __import
-        <\%defeval __import <\%include "$1.mpp">>
+        <~%defeval __import <~%include "$1.mpp">>
     ><%__import><%undef __import>
 >&
 <#######################################################################
@@ -38,8 +38,8 @@
  #>&
 <%define _defext
     <%defeval __defext
-        <\%defeval $1
-            <\%include "$2">
+        <~%defeval $1
+            <~%include "$2">
         >
     ><%__defext><%undef __defext>
 >&
@@ -58,6 +58,7 @@
  # <%code file syntax>
  #
  # Create a code block with file contents
+ # TODO: include without expansion???
  #>&
 <%define code
     <%_defext __code "$1">```$2
