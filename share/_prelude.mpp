@@ -5,10 +5,13 @@
 <%mode quote "~">&
 <#######################################################################
  # <%null>
+ # <%id>
  #
  # The null macro: expands to nothing
+ # The identity macro: expands to $1
  #>&
 <%define null>&
+<%define id $1>&
 <#######################################################################
  # <%call name arg...>
  #

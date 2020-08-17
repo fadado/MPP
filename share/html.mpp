@@ -3,22 +3,24 @@
  # Usage: <%import html>
  #####################################################################>
 
-<%mode user "@" "" "(\W" "\B" "\W)" "(" ")" "$" "">
+<%mode user "$" "" "(\W" "\B" "\W)" "(" ")" "$" "">
 <%mode meta user>
 
-@ifndef(__html__)
-@define(__html__)
+$ifndef(__html__)
+$define(__html__)
+
+@mode(quote)
 
 <#######################################################################
- # @sc(text)
+ # $sc(text)
  #
  # Expand to an HTML/CSS small caps string.
  #>
-@define(sc
+$define(sc
     <span style='font-variant:small-caps;'>$1</span>
  )
 
-@endif <# @ifndef(__html__) #>
+$endif <# $ifndef(__html__) #>
 
 <#
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
