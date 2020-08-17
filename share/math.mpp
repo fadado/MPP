@@ -1,15 +1,12 @@
 <#######################################################################
  # Mathematical related macros
- # Usage: <%import math>
+ # Usage: $import(math)
  #####################################################################>
-
-<%mode user "$" "" "(\W" "\B" "\W)" "(" ")" "$" "">
-<%mode meta user>
 
 $ifndef(__math__)
 $define(__math__)
 
-@mode(quote)
+$mode(quote)
 
 <#######################################################################
  # $incr(n)
@@ -31,7 +28,7 @@ $define(abs
  )
 
 $define(sign
-    $if($1 > 0)1$elif($1 < 0)-1$else$1$endif
+    $if($1 > 0)1$elif($1 < 0)-1$else$eval($1 + 0)$endif
  )
 
 $endif <# $ifndef(__math__) #>

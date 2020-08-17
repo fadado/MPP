@@ -1,80 +1,69 @@
 <#######################################################################
  # MPP prelude file
  #####################################################################>&
-<# Set a quote character only for this file #>&
-<%mode quote "~">&
-<#######################################################################
- # <%null>
- # <%id>
- #
- # The null macro: expands to nothing
- # The identity macro: expands to $1
+<# MPP default syntax.
+   To change syntax to, for example, cpp:
+        $mode(standard cpp)
+   To restore MPP syntax:
+        $mode(user $MPP_SYNTAX)$mode(meta user)
  #>&
-<%define null>&
-<%define id $1>&
+$define(MPP_SYNTAX "$" "" "(\W" "\B" "\W)" "(" ")" "$" "")&
+<# Set a quote character only for this file #>&
+$mode(quote "~")&
 <#######################################################################
- # <%call name arg...>
+ # $call(name arg...)
  #
  # Call a macro by name.
  #>&
-<%define call
-    <%defeval __call
-       <~%$1 "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9">
-    ><%__call><%undef __call>
->&
+$define(call
+    $defeval(__call
+       ~$$1("$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9")
+    )$__call$undef(__call)
+)&
 <#######################################################################
- # Usage: <%import file>
+ # $import(module)
  #
- # Equivalent to: <%defeval _ <%include file.mpp>><%undef _>
+ # Equivalent to: $defeval(_ $include(file.mpp))$undef(_)
  #
  #>&
-<%define import
-    <%defeval __import
-        <~%defeval __import <~%include "$1.mpp">>
-    ><%__import><%undef __import>
->&
+$define(import
+    $defeval(__import
+        ~$defeval(__import ~$include("$1.mpp"))
+    )$__import$undef(__import)
+)&
 <#######################################################################
- # <%_defext name file>... <%name arg...>
+ # $defpart(name file)... $name(arg...)
  #
  # Define name as a macro with contents of file as a body.
- # Equivalent to: <%defeval name <%include file>>
+ # Equivalent to: $defeval(name $include(file))
  #>&
-<%define _defext
-    <%defeval __defext
-        <~%defeval $1
-            <~%include "$2">
-        >
-    ><%__defext><%undef __defext>
->&
+$define(defpart
+    $defeval(__defext
+        ~$defeval($1 ~$include("$2"))
+    )$__defext$undef(__defext)
+)&
 <#######################################################################
- # <%partial file arg...>
+ # $partial(file arg...)
  #
  # Like include but passing (up to 8) parameters to the included file.
  # Assume 'md' filename extension.
  #>&
-<%define partial
-    <%defeval __partial
-        <~%defeval __partial <~%include "$1.md">>
-    ><%__partial><%__partial "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
-    ><%undef __partial>
->&
-<# OLD:
-<%define partial
-    <%_defext __partial "$1.md"
-    ><%__partial "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
-    ><%undef __partial>
->
-#>&
+$define(partial
+    $defeval(__partial
+        ~$defeval(__partial ~$include("$1.md"))
+    )$__partial$__partial("$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
+    )$undef(__partial)
+)&
 <#######################################################################
- # <%code file syntax>
+ # $code(file syntax)
  #
  # Create a code block with (no expanded) file contents
  #>&
-<%define code
+$define(code
     ```$2
-<%exec cat "$1">
+$exec(cat '$1')
 ```
->&
+)&
 <#######################################################################
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
 #>&
