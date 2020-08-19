@@ -1,0 +1,54 @@
+<#######################################################################
+ # MPP core user macros
+ # Usage: $import(prelude)
+ #####################################################################>
+
+$ifndef(__prelude__)
+$define(__prelude__)
+
+$mode(quote "~")
+
+<#######################################################################
+ # MPP default syntax.
+ # To change syntax to, for example, cpp:
+ #      $mode(standard cpp)
+ # To restore MPP syntax:
+ #      $mode(user $MPP_SYNTAX)$mode(meta user)
+ #>
+
+$define(MPP_SYNTAX "$" "" "(\W" "\B" "\W)" "(" ")" "$" "")
+
+<#######################################################################
+ # 
+ #>
+$define(null)
+$define(id $1)
+
+<#######################################################################
+ # $call(name arg...)
+ #
+ # Call an user macro by name.
+ #>
+$define(call
+    $defeval(__call
+       ~$$1('$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9')
+    )$__call$undef(__call)
+)
+
+<#######################################################################
+ # $partial(file arg...)
+ #
+ # Like include but passing (up to 8) parameters to the included file.
+ #>
+$define(partial
+    $defeval(__partial
+        ~$defeval(__partial ~$mode(quote)~$include($1)~$mode(quote "~"))
+    )$__partial$__partial("$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
+    )$undef(__partial)
+)
+
+$endif <# $ifndef(__prelude__) #>
+
+<#######################################################################
+vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
+#>

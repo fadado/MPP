@@ -1,69 +1,22 @@
 <#######################################################################
  # MPP prelude file
  #####################################################################>&
-<# MPP default syntax.
-   To change syntax to, for example, cpp:
-        $mode(standard cpp)
-   To restore MPP syntax:
-        $mode(user $MPP_SYNTAX)$mode(meta user)
- #>&
-$define(MPP_SYNTAX "$" "" "(\W" "\B" "\W)" "(" ")" "$" "")&
 <# Set a quote character only for this file #>&
 $mode(quote "~")&
 <#######################################################################
- # $call(name arg...)
- #
- # Call a macro by name.
- #>&
-$define(call
-    $defeval(__call
-       ~$$1("$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9")
-    )$__call$undef(__call)
-)&
-<#######################################################################
  # $import(module)
  #
- # Equivalent to: $defeval(_ $include(file.mpp))$undef(_)
+ # Equivalent to: $defeval(_ $include(module.mpp))$undef(_)
  #
  #>&
 $define(import
     $defeval(__import
-        ~$defeval(__import ~$include("$1.mpp"))
+        ~$defeval(__import
+            ~$mode(quote)~$include($1.mpp)~$mode(quote "~"))
     )$__import$undef(__import)
 )&
-<#######################################################################
- # $defpart(name file)... $name(arg...)
- #
- # Define name as a macro with contents of file as a body.
- # Equivalent to: $defeval(name $include(file))
- #>&
-$define(defpart
-    $defeval(__defext
-        ~$defeval($1 ~$include("$2"))
-    )$__defext$undef(__defext)
-)&
-<#######################################################################
- # $partial(file arg...)
- #
- # Like include but passing (up to 8) parameters to the included file.
- # Assume 'md' filename extension.
- #>&
-$define(partial
-    $defeval(__partial
-        ~$defeval(__partial ~$include("$1.md"))
-    )$__partial$__partial("$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
-    )$undef(__partial)
-)&
-<#######################################################################
- # $code(file syntax)
- #
- # Create a code block with (no expanded) file contents
- #>&
-$define(code
-    ```$2
-$exec(cat '$1')
-```
-)&
+<# import modules #>&
+$import(prelude)&
 <#######################################################################
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
 #>&

@@ -1,0 +1,47 @@
+<#######################################################################
+ # String utilities
+ # Usage: $import(string)
+ #####################################################################>
+
+$ifndef(__string__)
+$define(__string__)
+
+$mode(quote)
+
+<#######################################################################
+ # Non portable shell utils
+ #>
+$define(_TR /usr/bin/tr)
+$define(_EXPR /usr/bin/expr)
+$define(_ECHO echo)
+
+<#######################################################################
+ # $substr(string position length)
+ #>
+$define(substr $exec($_EXPR substr '$1' '$2' '$3'))
+
+<#######################################################################
+ # $substr(string characters)
+ #>
+$define(index $exec($_EXPR index '$1' '$2'))
+
+<#######################################################################
+ # 
+ # $length(string)
+ #>
+$define(length $eval(length($1)))
+
+<#######################################################################
+ # 
+ # $translit(string characters replacement)
+ #>
+$define(translit $exec($_ECHO '$1' | $_TR '$2' '$3'))
+
+<#######################################################################
+ # 
+ #>
+$endif <# $ifndef(__string__) #>
+
+<#
+vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
+#>
