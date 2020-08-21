@@ -15,7 +15,6 @@ $mode(quote "~")
  # To restore MPP syntax:
  #      $mode(user $MPP_SYNTAX)$mode(meta user)
  #>
-
 $define(MPP_SYNTAX "$" "" "(\W" "\B" "\W)" "(" ")" "$" "")
 
 <#######################################################################
@@ -33,6 +32,17 @@ $define(call
     $defeval(__call
        ~$$1('$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9')
     )$__call$undef(__call)
+)
+
+<#######################################################################
+ # $defpart(name file)... $name(arg...)
+ #
+ # Define name as a macro with contents of file as a body.
+ #>
+$define(defpart
+    $defeval(__defpart
+        ~$defeval($1 ~$mode(quote)~$include($2)~$mode(quote "~"))
+    )$__defpart$undef(__defpart)
 )
 
 <#######################################################################
