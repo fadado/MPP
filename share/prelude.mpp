@@ -57,6 +57,26 @@ $define(partial
     )$undef(__partial)
 )
 
+<#######################################################################
+ # $defcount(name start increment)
+ #
+ # Define an integer generator from start by increment.
+ #>
+$define(defcount
+    $defeval(__defcount
+        ~$define(_$1_ $2)~$define($1
+            ~$_$1_~$defeval(_$1_ ~$eval(~$_$1_ + $3)))
+    )$__defcount$undef(__defcount)
+)
+
+<#######################################################################
+ # $gensym[(prefix)]
+ #
+ # Generate an unique name.
+ #>
+$defcount(_GENSYM 1 1)
+$define(gensym $ifeq(;$1; ;;)__G_$else$1$endif$_GENSYM)
+
 $endif <# $ifndef(__prelude__) #>
 
 <#######################################################################

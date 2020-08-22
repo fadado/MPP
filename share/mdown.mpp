@@ -38,7 +38,7 @@ $concat($1)
  #>
 $define(sc
     <span style='font-variant:small-caps;'>$1</span>
- )
+)
 
 $endif <# $ifndef(__mdown__) #>
 

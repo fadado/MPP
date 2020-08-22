@@ -25,11 +25,11 @@ $define(decr $eval($1 - 1))
  #>
 $define(abs
     $if($1 >= 0)$1$else$eval(-($1))$endif
- )
+)
 
 $define(sign
     $if($1 > 0)1$elif($1 < 0)-1$else$eval($1 + 0)$endif
- )
+)
 
 $endif <# $ifndef(__math__) #>
 
