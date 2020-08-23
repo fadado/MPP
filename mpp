@@ -16,15 +16,10 @@ exec gpp \
     +siis '`'  '`' ''           \
     +siis '\n```' '\n```' ''    \
     +siis '\n~~~' '\n~~~' ''    \
-    -x -m                       \
     --warninglevel 2            \
-    --nostdinc                  \
-    -I "$INCLUDE"               \
+    --nostdinc -I "$INCLUDE"    \
     --include "$PRELUDE"        \
-    $ENVIRON                    \
-    "$@"
-
-# no reached
-exit 1
+    $ENVIRON -DNL="\n"          \
+    -x -m "$@"
 
 # vim:ts=4:sw=4:ai:et:fileencoding=utf-8:syntax=sh
