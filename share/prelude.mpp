@@ -86,14 +86,6 @@ $define(defcount
     )$__defcount$undef(__defcount)
 )
 
-<#######################################################################
- # $gensym[(prefix)]
- #
- # Generate an unique name.
- #>
-$defcount(_GENSYM 1 1)
-$define(gensym $ifeq(;$1; ;;)__G_$else$1$endif$_GENSYM)
-
 $endif <# $ifndef(__prelude__) #>
 
 <#######################################################################
