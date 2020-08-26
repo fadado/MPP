@@ -75,14 +75,14 @@ $define(partial
 )
 
 <#######################################################################
- # $defcount(name start increment)
+ # $defcount(name start [increment])
  #
  # Define an integer generator from start by increment.
  #>
 $define(defcount
     $defeval(__defcount
         ~$define(_$1_ $2)~$define($1
-            ~$_$1_~$defeval(_$1_ ~$eval(~$_$1_ + $3)))
+            ~$_$1_~$defeval(_$1_ ~$eval(~$_$1_ + $ifeq(;$3; ;;)1$else$3$endif)))
     )$__defcount$undef(__defcount)
 )
 

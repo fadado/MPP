@@ -8,14 +8,14 @@ readonly ENVIRON="-DUID=$UID -DHOME=$HOME -DPWD='$PWD' -DLANG=$LANG -DPID=$$"
 
 exec gpp \
     -U '$' '' '(\W' '\B' '\W)' '(' ')' '$' '' \
-    +sccc '&\n' '' ''           \
-    +siic '<#' '#>' ''          \
-    +siqi "'" "'" ''            \
-    +siQi '"' '"' ''            \
     +siis '<!--' '-->' ''       \
     +siis '`'  '`' ''           \
     +siis '\n```' '\n```' ''    \
     +siis '\n~~~' '\n~~~' ''    \
+    +siic '<#' '#>' ''          \
+    +sccc '&\n' '' ''           \
+    +siqi "'" "'" ''            \
+    +siQi '"' '"' ''            \
     --warninglevel 2            \
     --nostdinc -I "$INCLUDE"    \
     --include "$PRELUDE"        \
