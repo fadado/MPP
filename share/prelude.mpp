@@ -8,6 +8,12 @@ $define(__prelude__)
 
 $mode(quote "~")
 
+<#
+$mode(charset id  "\A\a\#_")
+$mode(charset op  "+-*/\\^<>=`~:.?@#&!%|")
+$mode(charset par "()[]{}")
+#>
+
 <#######################################################################
  # MPP default syntax.
  # To change syntax to, for example, cpp:
@@ -39,17 +45,6 @@ $define(id $1)
  # Outputs one line of text using the predefined macro $NL.
  #>
 $define(print $1$NL)
-
-<#######################################################################
- # $call(name arg...)
- #
- # Call an user macro by name.
- #>
-$define(call
-    $defeval(__call
-       ~$$1('$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9')
-    )$__call$undef(__call)
-)
 
 <#######################################################################
  # $defpart(name file)... $name(arg...)
@@ -84,6 +79,29 @@ $define(defcount
         ~$define(_$1_ $2)~$define($1
             ~$_$1_~$defeval(_$1_ ~$eval(~$_$1_ + $ifeq(;$3; ;;)1$else$3$endif)))
     )$__defcount$undef(__defcount)
+)
+
+<#######################################################################
+ # $call(name arg...)
+ #
+ # Call an user macro by name.
+ #>
+$define(call
+    $defeval(__call
+       ~$$1('$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9')
+    )$__call$undef(__call)
+)
+
+<#######################################################################
+ TODO: implement!
+ # $repeat(N name arg...)
+ #
+ # Call N times an user macro by name.
+ #>
+$define(repeat
+    $defeval(__repeat
+       ~$call('$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9')
+    )$__repeat$undef(__repeat)
 )
 
 $endif <# $ifndef(__prelude__) #>
