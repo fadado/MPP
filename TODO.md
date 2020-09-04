@@ -1,5 +1,4 @@
 
-
-Stratchey sigil: §
+VERSION, bump-version
 
 

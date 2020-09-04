@@ -42,6 +42,13 @@ $define(null)
 $define(id $1)
 
 <#######################################################################
+ # $iif(test then else)
+ #
+ # Inline IF.
+ #>
+$define(iif $if($1)$2$else$3$endif)
+
+<#######################################################################
  # $print(text)
  #
  # Outputs one line of text using the predefined macro $NL.
