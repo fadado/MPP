@@ -1,18 +1,15 @@
 <#######################################################################
- # MPP core user macros
- # Usage: $import(prelude)
+ # MPP prelude file
  #####################################################################>
 
 $ifndef(__prelude__)
 $define(__prelude__)
 
-$mode(quote "~")
-
 <# Defaults
 $mode(charset id  "\A\a\#_")
 $mode(charset op  "+-*/\\^<>=`~:.?@#&!%|")
 $mode(charset par "()[]{}")
-$mode(user "$" "" "(\W" "\B" "\W)" "(" ")" "$" "")
+$mode(user "$" "" "(\W" "\B" "\W)" "(" ")" "$" "~")
 $mode(meta user)
 #>
 
@@ -23,7 +20,7 @@ $mode(meta user)
  # To restore MPP syntax:
  #      $mode(user $MPP_SYNTAX)$mode(meta user)
  #>
-$define(MPP_SYNTAX "$" "" "(\W" "\B" "\W)" "(" ")" "$" "")
+$define(MPP_SYNTAX "$" "" "(\W" "\B" "\W)" "(" ")" "$" "~")
 
 <#######################################################################
  # $null
@@ -62,7 +59,7 @@ $define(print $1$NL)
  #>
 $define(defpart
     $defeval(__defpart
-        ~$defeval($1 ~$mode(quote)~$include($2)~$mode(quote "~"))
+        ~$defeval($1 ~$include($2))
     )$__defpart$undef(__defpart)
 )
 
@@ -73,7 +70,7 @@ $define(defpart
  #>
 $define(partial
     $defeval(__partial
-        ~$defeval(__partial ~$mode(quote)~$include($1)~$mode(quote "~"))
+        ~$defeval(__partial ~$include($1))
     )$__partial$__partial($2 $3 $4 $5 $6 $7 $8 $9
     )$undef(__partial)
 )

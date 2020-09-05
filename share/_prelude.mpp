@@ -1,8 +1,6 @@
 <#######################################################################
- # MPP prelude file
- #####################################################################>&
-<# Set a quote character only for this file #>&
-$mode(quote "~")&
+ # Bootstrap MPP prelude
+ #>&
 <#######################################################################
  # $import(module)
  #
@@ -11,8 +9,7 @@ $mode(quote "~")&
  #>&
 $define(import
     $defeval(__import
-        ~$defeval(__import
-            ~$mode(quote)~$include($1.mpp)~$mode(quote "~"))
+        ~$defeval(__import ~$include($1.mpp))
     )$__import$undef(__import)
 )&
 $import(prelude)&
