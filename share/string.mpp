@@ -1,51 +1,51 @@
 <#######################################################################
  # String utilities
- # Usage: $import(string)
+ # Usage: $import{string}
  #####################################################################>
 
-$ifndef(__string__)
-$define(__string__)
+$ifndef{__string__}
+$define{__string__}
 
-$mode(quote)
+$mode{quote}
 
 <#######################################################################
  # Non portable shell utils
  #>
-$define(_TR /usr/bin/tr)
-$define(_EXPR /usr/bin/expr)
-$define(_ECHO echo)
+$define{_TR /usr/bin/tr}
+$define{_EXPR /usr/bin/expr}
+$define{_ECHO echo}
 
 <#######################################################################
- # $substr(string position length)
+ # $substr{string position length}
  #>
-$define(substr $exec($_EXPR substr '$1' '$2' '$3'))
+$define{substr $exec{$_EXPR substr '$1' '$2' '$3'}}
 
 <#######################################################################
- # $substr(string characters)
+ # $substr{string characters}
  #>
-$define(index $exec($_EXPR index '$1' '$2'))
+$define{index $exec{$_EXPR index '$1' '$2'}}
 
 <#######################################################################
  # 
- # $length(string)
+ # $length{string}
  #>
-$define(length $eval(length($1)))
+$define{length $eval{length{$1}}}
 
 <#######################################################################
  # 
- # $translit(string characters replacement)
+ # $translit{string characters replacement}
  #>
-$define(translit $exec($_ECHO '$1' | $_TR '$2' '$3'))
+$define{translit $exec{$_ECHO '$1' | $_TR '$2' '$3'}}
 
 <#######################################################################
- # $gensym[(prefix)]
+ # $gensym[{prefix}]
  #
  # Generate an unique name.
  #>
-$defcount(_GENSYM 1 1)
-$define(gensym $ifeq(;$1; ;;)__G_$else$1$endif$_GENSYM)
+$defcount{_GENSYM 1 1}
+$define{gensym $ifeq{;$1; ;;}__G_$else$1$endif$_GENSYM}
 
-$endif <# $ifndef(__string__) #>
+$endif <# $ifndef{__string__} #>
 
 <#
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl

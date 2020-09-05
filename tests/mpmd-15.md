@@ -1,5 +1,5 @@
 <# skip section: code #>&
-$define(MACRO Lorem Ipsum)&
+$define{MACRO Lorem Ipsum}&
 $MACRO
 ~~~
 $MACRO

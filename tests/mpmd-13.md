@@ -1,5 +1,5 @@
 <# skip section: XML comment #>&
-$define(MACRO Lorem Ipsum)&
+$define{MACRO Lorem Ipsum}&
 $MACRO
 <!-- $MACRO -->
 <#

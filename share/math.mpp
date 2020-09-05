@@ -1,37 +1,37 @@
 <#######################################################################
  # Mathematical macros
- # Usage: $import(math)
+ # Usage: $import{math}
  #####################################################################>
 
-$ifndef(__math__)
-$define(__math__)
+$ifndef{__math__}
+$define{__math__}
 
-$mode(quote)
+$mode{quote}
 
 <#######################################################################
- # $incr(n)
- # $decr(n)
+ # $incr{n}
+ # $decr{n}
  #
  # Increment/Decrement n
  #>
-$define(incr $eval($1 + 1))
-$define(decr $eval($1 - 1))
+$define{incr $eval{$1 + 1}}
+$define{decr $eval{$1 - 1}}
 
 <#######################################################################
- # $abs(n)
- # $sign(n)
+ # $abs{n}
+ # $sign{n}
  #
  # Absolute value and Sign functions
  #>
-$define(abs
-    $if($1 >= 0)$1$else$eval(-($1))$endif
-)
+$define{abs
+    $iif{"$1 >= 0" $1 $eval{-($1)}}
+}
 
-$define(sign
-    $if($1 > 0)1$elif($1 < 0)-1$else$eval($1 + 0)$endif
-)
+$define{sign
+    $if{$1 > 0}1$elif{$1 < 0}-1$else$eval{$1 + 0}$endif
+}
 
-$endif <# $ifndef(__math__) #>
+$endif <# $ifndef{__math__} #>
 
 <#
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
