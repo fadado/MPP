@@ -1,73 +1,73 @@
-<#######################################################################
- # MPP prelude file
- #####################################################################>
+#|######################################################################
+# MPP prelude file
+######################################################################|#
 
 $ifndef{__prelude__}
 $define{__prelude__}
 
-<# Defaults
+#| Defaults
 $mode{charset id  "\A\a\#_"}
 $mode{charset op  "+-*/\\^<>=`~:.?@#&!%|"}
 $mode{charset par "()[]{}"}
 $mode{user "$" "" "(\W" "\B" "\W)" "(" ")" "$" ""}
 $mode{meta user}
-#>
+|#
 
-<#######################################################################
- # MPP default syntax.
- # To change syntax to, for example, cpp:
- #      $mode{standard cpp}
- # To restore MPP syntax:
- #      $mode{user $MPP_SYNTAX}$mode{meta user}
- #>
+#|######################################################################
+# MPP default syntax.
+# To change syntax to, for example, cpp:
+#      $mode{standard cpp}
+# To restore MPP syntax:
+#      $mode{user $MPP_SYNTAX}$mode{meta user}
+#|#
 $define{MPP_SYNTAX "$" "" "{\W" "\B" "\W}" "{" "}" "$" ""}
 
-<#######################################################################
- # $null
- # $null{}
- # $null{ignored}
- #
- # Void expansion.
- #>
+#|######################################################################
+# $null
+# $null{}
+# $null{ignored}
+#
+# Void expansion.
+#|#
 $define{null}
 
-<#######################################################################
- # $id{text}
- #
- # Identity macro.
- #>
+#|######################################################################
+# $id{text}
+#
+# Identity macro.
+#|#
 $define{id $1}
 
-<#######################################################################
- # $iif{test then else}
- #
- # Inline IF.
- #>
+#|######################################################################
+# $iif{test then else}
+#
+# Inline IF.
+#|#
 $define{iif $if{$1}$2$else$3$endif}
 
-<#######################################################################
- # $print{text}
- #
- # Outputs one line of text using the predefined macro $NL.
- #>
+#|######################################################################
+# $print{text}
+#
+# Outputs one line of text using the predefined macro $NL.
+#|#
 $define{print $1$NL}
 
-<#######################################################################
- # $defpart{name file}... $name{arg...}
- #
- # Define name as a macro with contents of file as a body.
- #>
+#|######################################################################
+# $defpart{name file}... $name{arg...}
+#
+# Define name as a macro with contents of file as a body.
+#|#
 $define{defpart
     $defeval{__defpart
         ~$defeval{$1 ~$mode{quote}~$include{$2}~$mode{quote "~"}}
     }$__defpart$undef{__defpart}
 }
 
-<#######################################################################
- # $partial{file arg...}
- #
- # Like include but passing (up to 8) parameters to the included file.
- #>
+#|######################################################################
+# $partial{file arg...}
+#
+# Like include but passing (up to 8) parameters to the included file.
+#|#
 $define{partial
     $defeval{__partial
         ~$defeval{__partial
@@ -76,11 +76,11 @@ $define{partial
     }$undef{__partial}
 }
 
-<#######################################################################
- # $defcount{name start [increment]}
- #
- # Define an integer generator from start by increment.
- #>
+#|######################################################################
+# $defcount{name start [increment]}
+#
+# Define an integer generator from start by increment.
+#|#
 $define{defcount
     $defeval{__defcount
         ~$define{_$1_ $2}~$define{$1
@@ -88,26 +88,25 @@ $define{defcount
     }$__defcount$undef{__defcount}
 }
 
-<#######################################################################
- # $call{name arg...}
- #
- # Call an user macro by name.
- #>
+#|######################################################################
+# $call{name arg...}
+#
+# Call an user macro by name.
+#|#
 $define{call
     $defeval{__call
        ~$$1{'$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9'}
     }$__call$undef{__call}
 }
 
-<#######################################################################
- # $repeat{N name arg...}
- #
- # Call N times an user macro by name.
- #
- # First argument to macro name is the loop index (1..N).
- # Uses global $_repeat_index (can't nest repeats!).
- #>
-
+#|######################################################################
+# $repeat{N name arg...}
+#
+# Call N times an user macro by name.
+#
+# First argument to macro name is the loop index (1..N).
+# Uses global $_repeat_index (can't nest repeats!).
+#|#
 $define{repeat
     $define{_repeat_index 1
     }$_repeat{$1 $2 $3 $4 $5 $6 $7 $8 $9}
@@ -124,8 +123,8 @@ $endif&
 $_repeat_step
 }
 
-$endif <# $ifndef{__prelude__} #>
+$endif #| $ifndef{__prelude__} |#
 
-<#######################################################################
+#|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
-#>
+|#

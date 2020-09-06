@@ -1,4 +1,4 @@
-<# examples from GPM paper #>&
+#| examples from GPM paper |#&
 $mode{user "<%" ">" "\B" "\B" "\W>" "<" ">" "$" ""}&
 $mode{meta user}&
 <%define A A$1A>&
@@ -21,7 +21,7 @@ Q[<%A C>]R
 Q[<%]R[>]
 Q[[<%A C>]]R
 &
-<# Output:
+#| Output:
 	ACA
 	AACAA
 	AACAA
@@ -35,7 +35,7 @@ Q[[<%A C>]]R
 	BAX<%A X>XAB
 	Q<%R>
 	Q[<%A C>]R
-#>&
-<#
+|#&
+#|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
-#>&
+|#&

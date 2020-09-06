@@ -13,7 +13,7 @@ exec gpp \
     +siis '\n```' '\n```' ''    \
     +siis '\n~~~' '\n~~~' ''    \
     +sccc '&\n' '' ''           \
-    +siic '<#' '#>' ''          \
+    +siic '#|' '|#' ''          \
     +siqi "'" "'" ''            \
     +siQi '"' '"' ''            \
     --warninglevel 2            \

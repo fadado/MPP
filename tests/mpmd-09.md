@@ -1,4 +1,4 @@
-<# recursion #>&
+#| recursion |#&
 $mode{user "<%" ">" "\B" "\B" "\W>" "<" ">" "$" ""}&
 $mode{meta user}&
 <%define countdown
@@ -12,6 +12,6 @@ Done!
 <%_countdown <%eval $1-1>>&
 >&
 <%countdown 10>&
-<#
+#|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
-#>&
+|#&
