@@ -21,7 +21,7 @@ $define{_ECHO echo}
 $define{substr $exec{$_EXPR substr '$1' '$2' '$3'}}
 
 #|######################################################################
-# $substr{string characters}
+# $index{string characters}
 #|#
 $define{index $exec{$_EXPR index '$1' '$2'}}
 
