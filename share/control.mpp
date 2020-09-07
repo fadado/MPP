@@ -1,0 +1,49 @@
+#|######################################################################
+# Control structures
+# Usage: $import{control}
+######################################################################|#
+
+$ifndef{__control__}
+$define{__control__}
+
+#|######################################################################
+# $halt
+#
+# Exit MPP.
+#|#
+$define{halt $exec{kill -s TERM $PID}}
+
+#|######################################################################
+# $iif{test then else}
+#
+# Inline IF.
+#|#
+$define{iif $if{$1}$2$else$3$endif}
+
+#|######################################################################
+# $repeat{N name arg...}
+#
+# Call N times an user macro by name.
+#
+# First argument to macro name is the loop index (1..N).
+# Uses global $_repeat_index (can't nest repeats!).
+#|#
+$define{repeat
+    $define{_repeat_index 1
+    }$_repeat{$1 $2 $3 $4 $5 $6 $7 $8 $9}
+}
+
+$define{_repeat
+$if{$_repeat_index > $1}&
+$define{_repeat_step}&
+$else&
+$call{$2 $_repeat_index $3 $4 $5 $6 $7 $8 $9}&
+$defeval{_repeat_index $eval{$_repeat_index + 1}}&
+$defeval{_repeat_step ~$_repeat{'$1' '$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9'}}&
+$endif&
+$_repeat_step
+}
+
+#|
+vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
+|#

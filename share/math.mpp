@@ -6,27 +6,33 @@
 $ifndef{__math__}
 $define{__math__}
 
+$import{control}
+
 $mode{quote}
 
 #|######################################################################
-# $incr{n}
-# $decr{n}
-#
-# Increment/Decrement n
-#|#
-$define{incr $eval{$1 + 1}}
-$define{decr $eval{$1 - 1}}
-
-#|######################################################################
 # $abs{n}
-# $sign{n}
 #
-# Absolute value and Sign functions
+# Absolute value.
 #|#
 $define{abs
     $iif{"$1 >= 0" $1 $eval{-($1)}}
 }
 
+#|######################################################################
+# $incr{n}
+# $decr{n}
+#
+# Increment/Decrement n.
+#|#
+$define{incr $eval{$1 + 1}}
+$define{decr $eval{$1 - 1}}
+
+#|######################################################################
+# $sign{n}
+#
+# Sign function.
+#|#
 $define{sign
     $if{$1 > 0}1$elif{$1 < 0}-1$else$eval{$1 + 0}$endif
 }

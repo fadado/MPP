@@ -14,13 +14,6 @@ $mode{quote}
 $define{_CAT /usr/bin/cat}
 
 #|######################################################################
-# $concat{file}
-#
-# Like include but without macro expansion.
-#|#
-$define{concat $exec{$_CAT '$1'}}}
-
-#|######################################################################
 # $code{file syntax}
 #
 # Create a code block with (no expanded) file contents
@@ -30,6 +23,13 @@ $define{code
 $concat{$1}
 ```
 }
+
+#|######################################################################
+# $concat{file}
+#
+# Like include but without macro expansion.
+#|#
+$define{concat $exec{$_CAT '$1'}}}
 
 #|######################################################################
 # $sc{text}
