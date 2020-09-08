@@ -2,9 +2,14 @@
 
 # impp - Interactive Markdown preprocessor
 
-PROMPT='%>> '
-COLOUR=yellow
-
+case $TERM in
+	linux|xterm*|screen*)
+		echo -en '\e[0m\e[1;1H\e[2J'
+	;;
+	*)
+		clear
+	;;
+esac
 
 echo ' _____ ___ ___ '
 echo '|     | , | , |'
@@ -12,8 +17,14 @@ echo '|_|_|_|  _|  _|'
 echo '      |_| |_|  '
 echo
 echo "Welcome to MPP 0.1"
-echo 'Copyright (c) Joan Josep Ordinas Rosa (2020) <joan.ordinas@pm.me>'
 echo
+
+# Simple interface
+exec rlwrap "${0%impp}mpp" "$@"
+
+# With prompt
+PROMPT='%>> '
+COLOUR=yellow
 
 exec rlwrap --prompt-colour="$COLOUR"       \
             --substitute-prompt="$PROMPT"   \

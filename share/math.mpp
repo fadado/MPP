@@ -8,8 +8,6 @@ $define{__math__}
 
 $import{control}
 
-$mode{quote}
-
 #|######################################################################
 # $abs{n}
 #
@@ -37,6 +35,21 @@ $define{sign
     $if{$1 > 0}1$elif{$1 < 0}-1$else$eval{$1 + 0}$endif
 }
 
+#|######################################################################
+# $fact{n}
+#
+# Factorial function.
+#|#
+$define{fact $if{$1 > 0}$_fact{$1 1}$endif}
+
+$define{_fact
+$if{$1 <= 1}&
+$defeval{_fact_step $2}&
+$else&
+$defeval{_fact_step ~$_fact{$eval{$1 - 1} $eval{$2 * $1}}}&
+$endif&
+$_fact_step
+}
 $endif #| $ifndef{__math__} |#
 
 #|

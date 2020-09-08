@@ -81,9 +81,16 @@ $define{partial
 #|######################################################################
 # $print{text}
 #
-# Outputs one line of text using the predefined macro $NL.
+# Output one line of text using the predefined macro $NL.
 #|#
 $define{print $1$NL}
+
+#|######################################################################
+# $read
+#
+# Read one line of text followed by EOF (^D on Unix, ^Z on MSDOS).
+#|#
+$define{read $exec{cat}}
 
 $endif #| $ifndef{__prelude__} |#
 

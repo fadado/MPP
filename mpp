@@ -13,13 +13,13 @@ exec gpp \
     +siis '\n```' '\n```' ''    \
     +siis '\n~~~' '\n~~~' ''    \
     +sccc '&\n' '' ''           \
-    +siic '#|' '|#' ''          \
-    +siic '#c<' '>' ''          \
-    +siiC '#C<' '>' ''          \
-    +siis '#s<' '>' ''          \
-    +siiS '#S<' '>' ''          \
-    +siiq '#q<' '>' ''          \
-    +siiQ '#Q<' '>' ''          \
+    +sccc '#|' '|#' ''          \
+    +scic '#c<' '>' ''          \
+    +sCCC '#C<' '>' ''          \
+    +ssss '#s<' '>' ''          \
+    +sSSS '#S<' '>' ''          \
+    +sqqq '#q<' '>' ''          \
+    +sQQQ '#Q<' '>' ''          \
     +siqi "'" "'" ''            \
     +siQi '"' '"' ''            \
     --warninglevel 2            \
