@@ -40,16 +40,20 @@ $define{sign
 #
 # Factorial function.
 #|#
-$define{fact $if{$1 > 0}$_fact{$1 1}$endif}
+$define{fact $if{$1 >= 0}$_fact{$1 1}$endif}
 
+#; _fact{n accumulator}
 $define{_fact
 $if{$1 <= 1}&
+#; return accumulator
 $defeval{_fact_step $2}&
 $else&
+#; decrement n and increment accumulator
 $defeval{_fact_step ~$_fact{$eval{$1 - 1} $eval{$2 * $1}}}&
 $endif&
 $_fact_step
 }
+
 $endif #| $ifndef{__math__} |#
 
 #|

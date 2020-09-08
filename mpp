@@ -12,16 +12,17 @@ exec gpp \
     +siis '`'  '`' ''           \
     +siis '\n```' '\n```' ''    \
     +siis '\n~~~' '\n~~~' ''    \
-    +sccc '&\n' '' ''           \
     +sccc '#|' '|#' ''          \
-    +scic '#c<' '>' ''          \
+    +sccc '#;' '\n' ''          \
+    +sccc '&\n' '' ''           \
+    +siqi "'" "'" ''            \
+    +siQi '"' '"' ''            \
+    +sccc '#c<' '>' ''          \
     +sCCC '#C<' '>' ''          \
     +ssss '#s<' '>' ''          \
     +sSSS '#S<' '>' ''          \
     +sqqq '#q<' '>' ''          \
     +sQQQ '#Q<' '>' ''          \
-    +siqi "'" "'" ''            \
-    +siQi '"' '"' ''            \
     --warninglevel 2            \
     --nostdinc -I "$INCLUDE"    \
     --include "$PRELUDE"        \

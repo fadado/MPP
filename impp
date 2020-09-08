@@ -20,13 +20,14 @@ echo "Welcome to MPP 0.1"
 echo
 
 # Simple interface
-exec rlwrap "${0%impp}mpp" "$@"
+#exec rlwrap --pass-sigint-as-sigterm "${0%impp}mpp" "$@"
 
 # With prompt
-PROMPT='%>> '
+PROMPT='#>> '
 COLOUR=yellow
 
-exec rlwrap --prompt-colour="$COLOUR"       \
+exec rlwrap --pass-sigint-as-sigterm        \
+            --prompt-colour="$COLOUR"       \
             --substitute-prompt="$PROMPT"   \
             "${0%impp}mpp" "$@"
 

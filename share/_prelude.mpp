@@ -1,4 +1,12 @@
 #|######################################################################
+# MPP prelude file
+#
+# Syntax specification for modules:
+#mode string ccc "&\n" "" ""
+#mode user "$" "" "(\W" "\B" "\W)" "(" ")" "$" "~"
+#mode meta user
+|#&
+#|######################################################################
 # $import{module}
 #
 # Include module.mpp with void expansion.

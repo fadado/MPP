@@ -1,17 +1,9 @@
 #|######################################################################
-# MPP prelude file
+# MPP prelude user macros
 ######################################################################|#
 
 $ifndef{__prelude__}
 $define{__prelude__}
-
-#| Defaults
-$mode{charset id  "\A\a\#_"}
-$mode{charset op  "+-*/\\^<>=`~:.?@#&!%|"}
-$mode{charset par "()[]{}"}
-$mode{user "$" "" "(\W" "\B" "\W)" "(" ")" "$" ""}
-$mode{meta user}
-|#
 
 #|######################################################################
 # MPP default syntax.
@@ -88,9 +80,10 @@ $define{print $1$NL}
 #|######################################################################
 # $read
 #
-# Read one line of text followed by EOF (^D on Unix, ^Z on MSDOS).
+# Read one CR terminated line of text followed by EOF (^D on Unix, ^Z on
+# MSDOS).
 #|#
-$define{read $exec{cat}}
+$define{read $exec{echo -n `cat`}}
 
 $endif #| $ifndef{__prelude__} |#
 
