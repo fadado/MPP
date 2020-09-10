@@ -1,8 +1,8 @@
-$define{greet
+${define greet
 What is your name?
-$defeval{_greet_name $read}#; end with CR+^D
-Goodbye $_greet_name...&
-$undef{_greet_name}&
+${defeval _greet_name ${read}}#; end with CR+^D
+Goodbye ${_greet_name}...&
+${undef _greet_name}&
 }
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl

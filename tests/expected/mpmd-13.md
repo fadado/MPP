@@ -1,2 +1,2 @@
 Lorem Ipsum
-<!-- $MACRO -->
+<!-- ${MACRO} -->

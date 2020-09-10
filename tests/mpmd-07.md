@@ -1,6 +1,6 @@
 #| examples from GPM paper |#&
-$mode{user "<%" ">" "\B" "\B" "\W>" "<" ">" "$" ""}&
-$mode{meta user}&
+${mode user "<%" ">" "\B" "\B" "\W>" "<" ">" "$" ""}&
+${mode meta user}&
 <%define A A$1A>&
 <%define B B<%A X$1X>B>&
 <%define APA P$1$1P>&

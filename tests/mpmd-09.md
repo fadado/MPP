@@ -1,6 +1,6 @@
 #| recursion |#&
-$mode{user "<%" ">" "\B" "\B" "\W>" "<" ">" "$" ""}&
-$mode{meta user}&
+${mode user "<%" ">" "\B" "\B" "\W>" "<" ">" "$" ""}&
+${mode meta user}&
 <%define countdown
 <%if $1>&
 $1...

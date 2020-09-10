@@ -1,25 +1,20 @@
 #|######################################################################
 # MPP prelude file
-#
-# Syntax specification for modules:
-#mode string ccc "&\n" "" ""
-#mode user "$" "" "(\W" "\B" "\W)" "(" ")" "$" "~"
-#mode meta user
 |#&
 #|######################################################################
-# $import{module}
+# ${import module}
 #
 # Include module.mpp with void expansion.
 # The current quote character is exported.
-# Equivalent to: $defeval{_ $include{module.mpp}}$undef{_}
+# Equivalent to: ${defeval _ ${include module.mpp}}${undef _}
 #|#&
-$mode{quote "~"}&
-$define{import
-    $defeval{__import
-        ~$defeval{__import ~$include{$1.mpp}}
-    }$__import$undef{__import}
+${mode quote "~"}&
+${define import
+    ${defeval __import
+        ~${defeval __import ~${include $1.mpp}}
+    }${__import}${undef __import}
 }&
-$import{prelude}&
+${import prelude}&
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
 |#&

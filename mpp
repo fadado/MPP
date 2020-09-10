@@ -7,7 +7,7 @@ readonly INCLUDE="./share"
 readonly ENVIRON="-DUID=$UID -DHOME=$HOME -DPWD='$PWD' -DLANG=$LANG -DPID=$$"
 
 exec gpp \
-    -U '$' '' '{\W' '\B' '\W}' '{' '}' '$' '' \
+    -U '${\W' '\W}' '\W' '\B' '\W}' '{' '}' '$' '' \
     +siis '<!--' '-->' ''       \
     +siis '`'  '`' ''           \
     +siis '\n```' '\n```' ''    \

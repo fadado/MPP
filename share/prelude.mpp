@@ -2,80 +2,80 @@
 # MPP prelude user macros
 ######################################################################|#
 
-$ifndef{__prelude__}
-$define{__prelude__}
+${ifndef __prelude__}
+${define __prelude__}
 
 #|######################################################################
 # MPP default syntax.
 # To change syntax to, for example, cpp:
-#      $mode{standard cpp}
+#      ${mode standard cpp}
 # To restore MPP syntax:
-#      $mode{user $MPP_SYNTAX}$mode{meta user}
+#      ${mode user $MPP_SYNTAX}${mode meta user}
 #|#
-$define{MPP_SYNTAX "$" "" "{\W" "\B" "\W}" "{" "}" "$" ""}
+${define MPP_SYNTAX "${\W" "\W}" "\W" "\B" "\W}" "{" "}" "$" ""}
 
 #|######################################################################
 # $id
-# $id{}
-# $id{text}
+# ${id }
+# ${id text}
 #
 # Identity macro (null macro without arguments).
 #|#
-$define{id $1}
+${define id $1}
 
 #|######################################################################
-# $call{name arg...}
+# ${call name arg...}
 #
 # Call an user macro by name.
 #|#
-$define{call
-    $defeval{__call
-       ~$ifdef{$1}~$$1{'$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9'}~$endif
-    }$__call$undef{__call}
+${define call
+    ${defeval __call
+       ~${ifdef $1}~${$1 '$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9'}~${endif}
+    }${__call}${undef __call}
 }
 
 #|######################################################################
-# $defcount{name start [increment]}
+# ${defcount name start [increment]}
 #
 # Define an integer generator from start by increment.
 #|#
-$define{defcount
-    $defeval{__defcount
-        ~$define{_$1_ $2}~$define{$1
-            ~$_$1_~$defeval{_$1_ ~$eval{~$_$1_ + $ifeq{;$3; ;;}1$else$3$endif}}}
-    }$__defcount$undef{__defcount}
+${define defcount
+    ${defeval __defcount
+        ~${define _$1_ $2}~${define $1
+            ~${_$1_}~${defeval _$1_ ~${eval ~${_$1_} + ${ifeq ;$3; ;;}1${else}$3${endif}}}}
+    }${__defcount}${undef __defcount}
 }
 
 #|######################################################################
-# $defpart{name file}... $name{arg...}
+# ${defpart name file}... ${name arg...}
 #
 # Define name as a macro with contents of file as a body.
 #|#
-$define{defpart
-    $defeval{__defpart
-        ~$defeval{$1 ~$mode{quote}~$include{$2}~$mode{quote "~"}}
-    }$__defpart$undef{__defpart}
+${define defpart
+    ${defeval __defpart
+        ~${defeval $1 ~${mode quote}~${include $2}~${mode quote "~"}}
+    }${__defpart}${undef __defpart}
 }
 
 #|######################################################################
-# $partial{file arg...}
+# ${partial file arg...}
 #
 # Like include but passing (up to 8) parameters to the included file.
 #|#
-$define{partial
-    $defeval{__partial
-        ~$defeval{__partial
-            ~$mode{quote}~$include{$1}~$mode{quote "~"}}
-    }$__partial$__partial{$2 $3 $4 $5 $6 $7 $8 $9
-    }$undef{__partial}
+${define partial
+    ${defeval __partial
+        ~${defeval __partial
+            ~${mode quote}~${include $1}~${mode quote "~"}}
+    }${__partial}${__partial $2 $3 $4 $5 $6 $7 $8 $9
+    }${undef __partial}
 }
 
 #|######################################################################
-# $print{text}
+# ${print text}
 #
 # Output one line of text using the predefined macro $NL.
 #|#
-$define{print $1$NL}
+${define print $1${NL}}
 
 #|######################################################################
 # $read
@@ -83,9 +83,9 @@ $define{print $1$NL}
 # Read one CR terminated line of text followed by EOF (^D on Unix, ^Z on
 # MSDOS).
 #|#
-$define{read $exec{echo -n `cat`}}
+${define read ${exec echo -n `cat`}}
 
-$endif #| $ifndef{__prelude__} |#
+${endif} #| ${ifndef __prelude__} |#
 
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl

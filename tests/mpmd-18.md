@@ -1,7 +1,7 @@
-$import{mdown}&
+${import mdown}&
 Python example:
 
-$code{tests/hello.py python}
+${code tests/hello.py python}
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
 |#&

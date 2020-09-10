@@ -1,46 +1,46 @@
 #|######################################################################
 # MarkDown/HTML macros
-# Usage: $import{mdown}
+# Usage: ${import mdown}
 ######################################################################|#
 
-$ifndef{__mdown__}
-$define{__mdown__}
+${ifndef __mdown__}
+${define __mdown__}
 
-$mode{quote}
+${mode quote}
 
 #|######################################################################
 # Non portable shell utils
 #|#
-$define{_CAT /usr/bin/cat}
+${define _CAT /usr/bin/cat}
 
 #|######################################################################
-# $code{file syntax}
+# ${code file syntax}
 #
 # Create a code block with (no expanded) file contents
 #|#
-$define{code
+${define code
     ```$2
-$concat{$1}
+${concat $1}
 ```
 }
 
 #|######################################################################
-# $concat{file}
+# ${concat file}
 #
 # Like include but without macro expansion.
 #|#
-$define{concat $exec{$_CAT '$1'}}}
+${define concat ${exec ${_CAT} '$1'}}}
 
 #|######################################################################
-# $sc{text}
+# ${sc text}
 #
 # Expand to an HTML/CSS small caps string.
 #|#
-$define{sc
+${define sc
     <span style='font-variant:small-caps;'>$1</span>
 }
 
-$endif #| $ifndef{__mdown__} |#
+${endif} #| ${ifndef __mdown__} |#
 
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
