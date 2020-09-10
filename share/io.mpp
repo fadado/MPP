@@ -1,0 +1,30 @@
+#|######################################################################
+# Input/output utilities
+# Usage: ${import io}
+######################################################################|#
+
+${ifndef __io__}
+${define __io__}
+
+${mode quote}
+
+#|######################################################################
+# ${print text}
+#
+# Output one line of text using the predefined macro $NL.
+#|#
+${define print $1${NL}}
+
+#|######################################################################
+# $read
+#
+# Read one CR terminated line of text followed by EOF (^D on Unix, ^Z on
+# MSDOS).
+#|#
+${define read ${exec echo -n `cat`}}
+
+${endif} #| ${ifndef __io__} |#
+
+#|
+vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
+|#

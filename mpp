@@ -7,22 +7,15 @@ readonly INCLUDE="./share"
 readonly ENVIRON="-DUID=$UID -DHOME=$HOME -DPWD='$PWD' -DLANG=$LANG -DPID=$$"
 
 exec gpp \
-    -U '${\W' '\W}' '\W' '\B' '\W}' '{' '}' '$' '' \
+    -U '${\W' '\W}' '\B' '\B' '\W}' '{' '}' '$' '' \
     +siis '<!--' '-->' ''       \
     +siis '`'  '`' ''           \
     +siis '\n```' '\n```' ''    \
     +siis '\n~~~' '\n~~~' ''    \
     +sccc '#|' '|#' ''          \
-    +sccc '#;' '\n' ''          \
     +sccc '&\n' '' ''           \
     +siqi "'" "'" ''            \
     +siQi '"' '"' ''            \
-    +sccc '#c<' '>' ''          \
-    +sCCC '#C<' '>' ''          \
-    +ssss '#s<' '>' ''          \
-    +sSSS '#S<' '>' ''          \
-    +sqqq '#q<' '>' ''          \
-    +sQQQ '#Q<' '>' ''          \
     --warninglevel 2            \
     --nostdinc -I "$INCLUDE"    \
     --include "$PRELUDE"        \

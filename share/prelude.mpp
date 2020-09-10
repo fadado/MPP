@@ -5,6 +5,14 @@
 ${ifndef __prelude__}
 ${define __prelude__}
 
+#| Full set of skips |#
+${mode string ccc "#c<" ">" ""}
+${mode string CCC "#C<" ">" ""}
+${mode string sss "#s<" ">" ""}
+${mode string SSS "#S<" ">" ""}
+${mode string qqq "#q<" ">" ""}
+${mode string QQQ "#Q<" ">" ""}
+
 #|######################################################################
 # MPP default syntax.
 # To change syntax to, for example, cpp:
@@ -12,11 +20,11 @@ ${define __prelude__}
 # To restore MPP syntax:
 #      ${mode user $MPP_SYNTAX}${mode meta user}
 #|#
-${define MPP_SYNTAX "${\W" "\W}" "\W" "\B" "\W}" "{" "}" "$" ""}
+${define MPP_SYNTAX "${\W" "\W}" "\B" "\B" "\W}" "{" "}" "$" ""}
 
 #|######################################################################
 # $id
-# ${id }
+# ${id}
 # ${id text}
 #
 # Identity macro (null macro without arguments).
@@ -69,21 +77,6 @@ ${define partial
     }${__partial}${__partial $2 $3 $4 $5 $6 $7 $8 $9
     }${undef __partial}
 }
-
-#|######################################################################
-# ${print text}
-#
-# Output one line of text using the predefined macro $NL.
-#|#
-${define print $1${NL}}
-
-#|######################################################################
-# $read
-#
-# Read one CR terminated line of text followed by EOF (^D on Unix, ^Z on
-# MSDOS).
-#|#
-${define read ${exec echo -n `cat`}}
 
 ${endif} #| ${ifndef __prelude__} |#
 

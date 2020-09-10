@@ -42,13 +42,15 @@ ${define sign
 #|#
 ${define fact ${if $1 >= 0}${_fact $1 1}${endif}}
 
-#; _fact{n accumulator}
+#| _fact{n accumulator}
+#
+#  Return accumulator if n <= 1
+#  else decrement n, increment accumulator, and recurse.
+#|#
 ${define _fact
 ${if $1 <= 1}&
-#; return accumulator
 ${defeval _fact_step $2}&
 ${else}&
-#; decrement n and increment accumulator
 ${defeval _fact_step ~${_fact ${eval $1 - 1} ${eval $2 * $1}}}&
 ${endif}&
 ${_fact_step}

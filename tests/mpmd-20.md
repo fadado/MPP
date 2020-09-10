@@ -1,4 +1,5 @@
 #| call repeat{N m a...} |#&
+${import io}&
 ${import control}&
 ${repeat 10 print}&
 #|
