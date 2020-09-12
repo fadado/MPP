@@ -5,13 +5,14 @@
 ${ifndef __prelude__}
 ${define __prelude__}
 
-#| Full set of skips |#
+#| TODO: Full set of skips
 ${mode string ccc "#c<" ">" ""}
 ${mode string CCC "#C<" ">" ""}
 ${mode string sss "#s<" ">" ""}
 ${mode string SSS "#S<" ">" ""}
 ${mode string qqq "#q<" ">" ""}
 ${mode string QQQ "#Q<" ">" ""}
+|#
 
 #|######################################################################
 # MPP default syntax.
@@ -21,15 +22,6 @@ ${mode string QQQ "#Q<" ">" ""}
 #      ${mode user $MPP_SYNTAX}${mode meta user}
 #|#
 ${define MPP_SYNTAX "${\W" "\W}" "\B" "\B" "\W}" "{" "}" "$" ""}
-
-#|######################################################################
-# $id
-# ${id}
-# ${id text}
-#
-# Identity macro (null macro without arguments).
-#|#
-${define id $1}
 
 #|######################################################################
 # ${call name arg...}
@@ -55,16 +47,6 @@ ${define defcount
 }
 
 #|######################################################################
-# $gensym[{prefix}]
-#
-# Generate an unique name.
-#|#
-${defcount _GENSYM 1 1}
-${define ${gensym prefix}
-    ${ifeq ;${prefix}; ;;}__G_${else}${prefix}${endif}${_GENSYM}
-}
-
-#|######################################################################
 # ${defpart name filename}... ${name arg...}
 #
 # Define name as a macro with contents of file as a body.
@@ -74,19 +56,6 @@ ${define ${defpart name filename}
         ~${defeval ${name}
             ~${mode quote}~${include ${filename}}~${mode quote "~"}}
     }${__defpart}${undef __defpart}
-}
-
-#|######################################################################
-# ${partial filename arg...}
-#
-# Like include but passing (up to 8) parameters to the included file.
-#|#
-${define partial
-    ${defeval __partial
-        ~${defeval __partial
-            ~${mode quote}~${include $1}~${mode quote "~"}}
-    }${__partial}${__partial $2 $3 $4 $5 $6 $7 $8 $9
-    }${undef __partial}
 }
 
 ${endif} #| ${ifndef __prelude__} |#

@@ -37,6 +37,16 @@ ${define length ${eval length{$1}}}
 #|#
 ${define translit ${exec ${_ECHO} '$1' | ${_TR} '$2' '$3'}}
 
+#|######################################################################
+# $gensym[{prefix}]
+#
+# Generate an unique name.
+#|#
+${defcount _GENSYM 1 1}
+${define ${gensym prefix}
+    ${ifeq ;${prefix}; ;;}__G_${else}${prefix}${endif}${_GENSYM}
+}
+
 ${endif} #| ${ifndef __string__} |#
 
 #|
