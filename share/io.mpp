@@ -13,10 +13,10 @@ ${mode quote}
 #
 # Output one line of text using the predefined macro $NL.
 #|#
-${define print $1${NL}}
+${define ${print text} ${text}${NL}}
 
 #|######################################################################
-# $read
+# ${read}
 #
 # Read one CR terminated line of text followed by EOF (^D on Unix, ^Z on
 # MSDOS).

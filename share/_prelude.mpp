@@ -1,6 +1,6 @@
 #|######################################################################
 # MPP prelude file
-|#&
+#|#&
 #|######################################################################
 # ${import module}
 #
@@ -9,9 +9,9 @@
 # Equivalent to: ${defeval _ ${include module.mpp}}${undef _}
 #|#&
 ${mode quote "~"}&
-${define import
+${define ${import module}
     ${defeval __import
-        ~${defeval __import ~${include $1.mpp}}
+        ~${defeval __import ~${include ${module}.mpp}}
     }${__import}${undef __import}
 }&
 ${import prelude}&

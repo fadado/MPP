@@ -14,7 +14,7 @@ ${define __control__}
 ${define halt ${exec kill -s TERM $PID}}
 
 #|######################################################################
-# ${iif test then {else}}
+# ${iif test then [else]}
 #
 # Inline IF.
 #|#
@@ -44,6 +44,8 @@ ${defeval _repeat_step ~${_repeat '$1' '$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9'}}
 ${endif}&
 ${_repeat_step}
 }
+
+${endif} #| ${ifndef __control__} |#
 
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl

@@ -14,30 +14,30 @@ ${mode quote}
 ${define _CAT /usr/bin/cat}
 
 #|######################################################################
-# ${code file syntax}
+# ${code filename syntax}
 #
 # Create a code block with (no expanded) file contents
 #|#
-${define code
-    ```$2
-${concat $1}
+${define ${code filename syntax}
+    ```${syntax}
+${concat ${filename}}
 ```
 }
 
 #|######################################################################
-# ${concat file}
+# ${concat filename}
 #
 # Like include but without macro expansion.
 #|#
-${define concat ${exec ${_CAT} '$1'}}}
+${define ${concat filename}
+    ${exec ${_CAT} '${filename}'}}}
 
 #|######################################################################
-# ${sc text}
-#
+# Small caps format.
 # Expand to an HTML/CSS small caps string.
 #|#
-${define sc
-    <span style='font-variant:small-caps;'>$1</span>
+${define ${sc text}
+    <span style='font-variant:small-caps;'>${text}</span>
 }
 
 ${endif} #| ${ifndef __mdown__} |#

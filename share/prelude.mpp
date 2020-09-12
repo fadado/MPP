@@ -55,18 +55,29 @@ ${define defcount
 }
 
 #|######################################################################
-# ${defpart name file}... ${name arg...}
+# $gensym[{prefix}]
+#
+# Generate an unique name.
+#|#
+${defcount _GENSYM 1 1}
+${define ${gensym prefix}
+    ${ifeq ;${prefix}; ;;}__G_${else}${prefix}${endif}${_GENSYM}
+}
+
+#|######################################################################
+# ${defpart name filename}... ${name arg...}
 #
 # Define name as a macro with contents of file as a body.
 #|#
-${define defpart
+${define ${defpart name filename}
     ${defeval __defpart
-        ~${defeval $1 ~${mode quote}~${include $2}~${mode quote "~"}}
+        ~${defeval ${name}
+            ~${mode quote}~${include ${filename}}~${mode quote "~"}}
     }${__defpart}${undef __defpart}
 }
 
 #|######################################################################
-# ${partial file arg...}
+# ${partial filename arg...}
 #
 # Like include but passing (up to 8) parameters to the included file.
 #|#
