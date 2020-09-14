@@ -27,6 +27,15 @@ ${define ${incr n} ${eval ${n} + 1}}
 ${define ${decr n} ${eval ${n} - 1}}
 
 #|######################################################################
+# ${max m n}
+# ${min m n}
+#
+# Max and min functions.
+#|#
+${define ${max m n} ${if ${m} > ${n}}${m}${else}${n}${endif}}
+${define ${min m n} ${if ${m} > ${n}}${n}${else}${m}${endif}}
+
+#|######################################################################
 # ${sign n}
 #
 # Sign function.

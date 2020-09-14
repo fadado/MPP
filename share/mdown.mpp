@@ -40,6 +40,11 @@ ${define ${sc text}
     <span style='font-variant:small-caps;'>${text}</span>
 }
 
+#|######################################################################
+#
+#|#
+${define cut_off <!-- CUTOFF -->}
+
 ${endif} #| ${ifndef __mdown__} |#
 
 #|
