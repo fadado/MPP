@@ -5,15 +5,6 @@
 ${ifndef __prelude__}
 ${define __prelude__}
 
-#| TODO: Full set of skips
-${mode string ccc "#c<" ">" ""}
-${mode string CCC "#C<" ">" ""}
-${mode string sss "#s<" ">" ""}
-${mode string SSS "#S<" ">" ""}
-${mode string qqq "#q<" ">" ""}
-${mode string QQQ "#Q<" ">" ""}
-|#
-
 #|######################################################################
 # MPP default syntax.
 # To change syntax to, for example, cpp:

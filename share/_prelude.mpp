@@ -1,6 +1,26 @@
 #|######################################################################
 # MPP prelude file
 #|#&
+#| I want to modify the global mode |#&
+${mode pop}&
+#|######################################################################
+# More skips complementing comments and continuation lines.
+#|#&
+#| Markdown skips |#&
+${mode string iis "<!--" "-->" ""}&
+${mode string iis "`"  "`" ""}&
+${mode string iis "\n```" "\n```" ""}&
+${mode string iis "\n~~~" "\n~~~" ""}&
+#| User macro skips |#&
+${mode string iqi "'" "'" ""}&
+${mode string iQi "\"" "\"" ""}&
+#| All possible GPP skips |#&
+${mode string ccc "#c<" ">" ""}&
+${mode string CCC "#C<" ">" ""}&
+${mode string sss "#s<" ">" ""}&
+${mode string SSS "#S<" ">" ""}&
+${mode string qqq "#q<" ">" ""}&
+${mode string QQQ "#Q<" ">" ""}&
 #|######################################################################
 # ${import module}
 #
@@ -14,7 +34,11 @@ ${define ${import module}
         ~${defeval __import ~${include ${module}.mpp}}
     }${__import}${undef __import}
 }&
+#| Import user macros |#&
 ${import prelude}&
+${mode quote}&
+#| Save caller mode especification |#&
+${mode push}&
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
 |#&
