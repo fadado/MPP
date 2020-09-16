@@ -3,47 +3,44 @@
 # Usage: ${import mdown}
 ######################################################################|#
 
+#| TODO: &{cite text title...} and other HTML elemens not in Markdown |#
+
 ${ifndef __mdown__}
 ${define __mdown__}
 
-${mode quote}
+${import io}    #| concat |#
 
 #|######################################################################
-# Non portable shell utils
-#|#
-${define _CAT /usr/bin/cat}
-
-#|######################################################################
-# ${code filename syntax}
+# ${defcount name start [increment]}
 #
-# Create a code block with (no expanded) file contents
+# Define an integer generator from start by increment.
 #|#
-${define ${code filename syntax}
+${define defcount
+    ${defeval __defcount
+        ~${define _$1_ $2}~${define $1
+            ~${_$1_}~${defeval _$1_ ~${eval ~${_$1_} + ${ifeq ;$3; ;;}1${else}$3${endif}}}}
+    }${__defcount}${undef __defcount}
+}
+
+#|######################################################################
+# ${source filename syntax}
+#
+# Create a source block with (no expanded) file contents
+#|#
+${define ${source filename syntax}
     ```${syntax}
 ${concat ${filename}}
 ```
 }
 
 #|######################################################################
-# ${concat filename}
+# ${sc text}
 #
-# Like include but without macro expansion.
-#|#
-${define ${concat filename}
-    ${exec ${_CAT} '${filename}'}}}
-
-#|######################################################################
-# Small caps format.
 # Expand to an HTML/CSS small caps string.
 #|#
 ${define ${sc text}
     <span style='font-variant:small-caps;'>${text}</span>
 }
-
-#|######################################################################
-#
-#|#
-${define cut_off <!-- CUTOFF -->}
 
 ${endif} #| ${ifndef __mdown__} |#
 

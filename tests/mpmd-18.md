@@ -1,7 +1,7 @@
 ${import mdown}&
 Python example:
 
-${code tests/hello.py python}
+${source tests/hello.py python}
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
 |#&

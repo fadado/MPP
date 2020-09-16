@@ -1,4 +1,5 @@
 #| call macro example |#&
+${import control}&
 ${define A Al last!}&
 ${define CC $1${A}$2}&
 ${define B ${call "$1$1" '[' ']'}}&

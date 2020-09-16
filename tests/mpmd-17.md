@@ -1,4 +1,5 @@
 #| code block example |#&
+${import control}&
 ${mode comment iiC "[[" "]]\n"}&
 [[
     ${define A Al last!}

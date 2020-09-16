@@ -1,4 +1,5 @@
 #| examples from GPM paper |#&
+${import control}&
 ${mode user "<%" ">" "\B" "\B" "\W>" "<" ">" "$" ""}&
 ${mode meta user}&
 <%define A A$1A>&

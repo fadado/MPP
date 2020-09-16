@@ -6,44 +6,11 @@ ${ifndef __prelude__}
 ${define __prelude__}
 
 #|######################################################################
-# ${call name arg...}
-#
-# Call an user macro by name.
-#|#
-${define call
-    ${defeval __call
-       ~${ifdef $1}~${$1 '$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9'}~${endif}
-    }${__call}${undef __call}
-}
-
-#|######################################################################
-# ${expand body arg...}
-#
-# Define and call an anonymous macro.
-#|#
-${define expand
-    ${defeval __expand $1
-    }${__expand $2 $3 $4 $5 $6 $7 $8 $9}${undef __expand}
-}
-
-#|######################################################################
-# ${defcount name start [increment]}
-#
-# Define an integer generator from start by increment.
-#|#
-${define defcount
-    ${defeval __defcount
-        ~${define _$1_ $2}~${define $1
-            ~${_$1_}~${defeval _$1_ ~${eval ~${_$1_} + ${ifeq ;$3; ;;}1${else}$3${endif}}}}
-    }${__defcount}${undef __defcount}
-}
-
-#|######################################################################
-# ${defpart name filename}... ${name arg...}
+# ${defload name filename}... ${name arg...}
 #
 # Define name as a macro with contents of file as a body.
 #|#
-${define ${defpart name filename}
+${define ${defload name filename}
     ${defeval __defpart
         ~${defeval ${name}
             ~${mode quote}~${include ${filename}}~${mode quote "~"}}

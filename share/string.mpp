@@ -9,42 +9,40 @@ ${define __string__}
 ${mode quote}
 
 #|######################################################################
-# Non portable shell utils
+# Unix shell utils called in this module:
+#   - echo
+#   - expr
+#   - tr
 #|#
-${define _TR /usr/bin/tr}
-${define _EXPR /usr/bin/expr}
-${define _ECHO echo}
-
-#|######################################################################
-# ${substr string position length}
-#|#
-${define substr ${exec ${_EXPR} substr '$1' '$2' '$3'}}
 
 #|######################################################################
 # ${index string characters}
 #|#
-${define index ${exec ${_EXPR} index '$1' '$2'}}
+${define index
+    ${exec expr index '$1' '$2'}
+}
 
 #|######################################################################
 # 
 # ${length string}
 #|#
-${define length ${eval length{$1}}}
+${define length
+    ${eval length{$1}}
+}
+
+#|######################################################################
+# ${substr string position length}
+#|#
+${define substr
+    ${exec expr substr '$1' '$2' '$3'}
+}
 
 #|######################################################################
 # 
 # ${translit string characters replacement}
 #|#
-${define translit ${exec ${_ECHO} '$1' | ${_TR} '$2' '$3'}}
-
-#|######################################################################
-# $gensym[{prefix}]
-#
-# Generate an unique name.
-#|#
-${defcount _GENSYM 1 1}
-${define ${gensym prefix}
-    ${ifeq ;${prefix}; ;;}__G_${else}${prefix}${endif}${_GENSYM}
+${define translit
+    ${exec echo '$1' | tr '$2' '$3'}
 }
 
 ${endif} #| ${ifndef __string__} |#
