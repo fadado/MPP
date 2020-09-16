@@ -32,14 +32,18 @@ ${define expand
 #
 # Send MPP the TERM signal.
 #|#
-${define halt ${exec kill -s TERM $PID}}
+${define halt 
+    ${exec kill -s TERM $PID}
+}
 
 #|######################################################################
 # ${iif test then [else]}
 #
 # Inline IF.
 #|#
-${define iif ${if $1}$2${else}$3${endif}}
+${define iif
+    ${if $1}$2${else}$3${endif}
+}
 
 #|######################################################################
 # ${repeat N name arg...}

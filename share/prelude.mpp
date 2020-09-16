@@ -1,24 +1,40 @@
 #|######################################################################
-# MPP prelude user macros
-######################################################################|#
-
-${ifndef __prelude__}
-${define __prelude__}
-
+# MPP prelude file
+# Imported automatically.
+#####################################################################|#&
+#| Modify the global mode |#&
+${mode pop}&
+#| Markdown skips |#&
+${mode string iis "<!--" "-->" ""}&
+${mode string iis "`"  "`" ""}&
+${mode string iis "\n```" "\n```" ""}&
+${mode string iis "\n~~~" "\n~~~" ""}&
+#| User macro skips |#&
+${mode string iqi "'" "'" ""}&
+${mode string iQi "\"" "\"" ""}&
+#| All possible GPP skips |#&
+${mode string ccc "#c<" ">" ""}&
+${mode string CCC "#C<" ">" ""}&
+${mode string sss "#s<" ">" ""}&
+${mode string SSS "#S<" ">" ""}&
+${mode string qqq "#q<" ">" ""}&
+${mode string QQQ "#Q<" ">" ""}&
+#| Save global mode |#&
+${mode push}&
 #|######################################################################
-# ${defload name filename}... ${name arg...}
+# ${import module}
 #
-# Define name as a macro with contents of file as a body.
-#|#
-${define ${defload name filename}
-    ${defeval __defpart
-        ~${defeval ${name}
-            ~${mode quote}~${include ${filename}}~${mode quote "~"}}
-    }${__defpart}${undef __defpart}
-}
-
-${endif} #| ${ifndef __prelude__} |#
-
+# Include module.mpp with void expansion.
+# The quote character is exported.
+# Equivalent to: ${defeval _ ${include module.mpp}}${undef _}
+#|#&
+${mode quote "~"}&
+${define ${import module}
+    ${defeval __import
+        ~${defeval __import ~${include ${module}.mpp}}
+    }${__import}${undef __import}
+}&
+${mode quote}&
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
-|#
+|#&

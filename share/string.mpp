@@ -23,7 +23,6 @@ ${define index
 }
 
 #|######################################################################
-# 
 # ${length string}
 #|#
 ${define length
@@ -38,7 +37,6 @@ ${define substr
 }
 
 #|######################################################################
-# 
 # ${translit string characters replacement}
 #|#
 ${define translit

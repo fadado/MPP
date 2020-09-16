@@ -2,7 +2,7 @@
 
 # mpp - Markdown preprocessor
 
-readonly PRELUDE="share/_prelude.mpp"
+readonly PRELUDE="share/prelude.mpp"
 readonly INCLUDE="./share"
 readonly ENVIRON="-DUID=$UID -DHOME=$HOME -DPWD='$PWD' -DLANG=$LANG -DPID=$$"
 

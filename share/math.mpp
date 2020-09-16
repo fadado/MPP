@@ -6,7 +6,7 @@
 ${ifndef __math__}
 ${define __math__}
 
-${import control}
+${import control}   #| iff |#
 
 #|######################################################################
 # ${abs n}
@@ -41,8 +41,8 @@ ${define ${max m n}
     ${if ${m} > ${n}}${m}${else}${n}${endif}
 }
 
-${define
-    ${min m n} ${if ${m} > ${n}}${n}${else}${m}${endif}
+${define ${min m n}
+    ${if ${m} > ${n}}${n}${else}${m}${endif}
 }
 
 #|######################################################################

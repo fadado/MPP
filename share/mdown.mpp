@@ -3,7 +3,7 @@
 # Usage: ${import mdown}
 ######################################################################|#
 
-#| TODO: &{cite text title...} and other HTML elemens not in Markdown |#
+#| TODO: &{cite text title...} and other HTML elements not in Markdown |#
 
 ${ifndef __mdown__}
 ${define __mdown__}

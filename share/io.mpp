@@ -36,7 +36,7 @@ ${define ${print text}
 # ${read}
 #
 # Read one CR terminated line of text followed by EOF (^D on Unix, ^Z on
-# MSDOS).
+# MSDOS derived shells).
 #|#
 ${define read
     ${exec echo -n `cat`}
