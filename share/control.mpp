@@ -6,6 +6,10 @@
 ${ifndef __control__}
 ${define __control__}
 
+#| ...working ideas...
+${define isnull ${eval $1 == ${id}}}
+|#
+
 #|######################################################################
 # ${call name arg...}
 #

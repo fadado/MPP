@@ -12,21 +12,22 @@ ${mode string iis "\n~~~" "\n~~~" ""}&
 #| User macro skips |#&
 ${mode string iqi "'" "'" ""}&
 ${mode string iQi "\"" "\"" ""}&
-#| All possible GPP skips |#&
-${mode string ccc "#c<" ">" ""}&
-${mode string CCC "#C<" ">" ""}&
-${mode string sss "#s<" ">" ""}&
-${mode string SSS "#S<" ">" ""}&
-${mode string qqq "#q<" ">" ""}&
-${mode string QQQ "#Q<" ">" ""}&
+#| Quoted text |#&
+${mode string qqq "#<" ">#" ""}&
 #| Save global mode |#&
 ${mode push}&
+#|######################################################################
+# ${id}
+# ${id text}
+#
+# Useful equivalent to null text (${id}) or identity function (${id x}).
+#|#&
+${define id $1}&
 #|######################################################################
 # ${import module}
 #
 # Include module.mpp with void expansion.
-# The quote character is exported.
-# Equivalent to: ${defeval _ ${include module.mpp}}${undef _}
+# The quote character is exported (only) to imported modules.
 #|#&
 ${mode quote "~"}&
 ${define ${import module}
