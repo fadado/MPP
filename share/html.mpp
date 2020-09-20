@@ -1,0 +1,82 @@
+#|######################################################################
+# HTML macros
+# Usage: ${import html}
+######################################################################|#
+
+${ifndef __html__}
+${define __html__}
+
+${mode quote}
+
+#|######################################################################
+# ${small_caps text}
+#
+# Expand to an HTML/CSS small caps string.
+#|#
+${define ${small_caps text}
+    <span style='font-variant:small-caps;'>${text}</span>
+}
+
+#|######################################################################
+# ${...}
+#
+# Some HTML elements not in Pandoc
+#|#
+
+${define abbr
+    <abbr${if $2 =~ title=*} $2${endif}>$1</abbr>
+}
+
+${define big
+    <big>$1</big>
+}
+
+${define cite
+    <cite>$1</cite>
+}
+
+${define del
+    <del${if $2 =~ cite=*} $2${endif}${if $3 =~ datetime=*} $3${endif}>$1</del>
+}
+
+${define dfn
+    <dfn>$1</dfn>
+}
+
+${define ins
+    <ins${if $2 =~ cite=*} $2${endif}${if $3 =~ datetime=*} $3${endif}>$1</ins>
+}
+
+${define kbd
+    <kbd>$1</kbd>${ifneq "$2" ""}+<kbd>$2</kbd>${endif}${ifneq "$3" ""}+<kbd>$3</kbd>${endif}${ifneq "$4" ""}+<kbd>$4</kbd>${endif}
+}
+
+${define samp
+    <samp>$1</samp>
+}
+
+${define small
+    <small>$1</small>
+}
+
+${define span
+    <span${if $2 =~ class=*} $2${endif}>$1</span>
+}
+
+${define tt
+    <tt>$1</tt>
+}
+
+${define var
+    <var>$1</var>
+}
+
+${define q
+    <q${if $2 =~ cite=*} $2${endif}>$1</q>
+}
+
+${endif} #| ${ifndef __html__} |#
+
+#|
+vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
+|#

@@ -1,11 +1,7 @@
 #|######################################################################
-# MarkDown/HTML macros
+# MarkDown macros
 # Usage: ${import mdown}
 ######################################################################|#
-
-#| TODO: &{cite text title...}, kbd and other HTML elements not in Markdown
-#   Create a new module for HTMl only; cite, kbd, etc.
-#|#
 
 ${ifndef __mdown__}
 ${define __mdown__}
@@ -27,21 +23,12 @@ ${define defcount
 #|######################################################################
 # ${source filename syntax}
 #
-# Create a source block with (no expanded) file contents
+# Create a source block with (not expanded) file contents
 #|#
 ${define ${source filename syntax}
     ```${syntax}
 ${concat ${filename}}
 ```
-}
-
-#|######################################################################
-# ${sc text}
-#
-# Expand to an HTML/CSS small caps string.
-#|#
-${define ${sc text}
-    <span style='font-variant:small-caps;'>${text}</span>
 }
 
 ${endif} #| ${ifndef __mdown__} |#
