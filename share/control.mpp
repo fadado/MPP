@@ -8,6 +8,7 @@ ${define __control__}
 
 #| ...working ideas...
 ${define isnull ${eval $1 == ${id}}}
+${define isnull ${eval "$1" == ""}}
 |#
 
 #|######################################################################

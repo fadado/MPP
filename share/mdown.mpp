@@ -26,7 +26,7 @@ ${define defcount
 # Create a source block with (not expanded) file contents
 #|#
 ${define ${source filename syntax}
-    ```${syntax}
+```${syntax}
 ${concat ${filename}}
 ```
 }

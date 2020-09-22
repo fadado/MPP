@@ -11,68 +11,130 @@ ${mode quote}
 #|######################################################################
 # ${small_caps text}
 #
-# Expand to an HTML/CSS small caps string.
+# Expand to an HTML/CSS small caps.
 #|#
 ${define ${small_caps text}
     <span style='font-variant:small-caps;'>${text}</span>
 }
 
 #|######################################################################
-# ${...}
+# ${abbr text [title=text]}
 #
-# Some HTML elements not in Pandoc
+# abbr HTML element.
 #|#
-
 ${define abbr
-    <abbr${if $2 =~ title=*} $2${endif}>$1</abbr>
+    <abbr${if $2 =~ *=*} $2${endif}>$1</abbr>
 }
 
+#|######################################################################
+# ${big text}
+#
+# big HTML element.
+#|#
 ${define big
     <big>$1</big>
 }
 
+#|######################################################################
+# ${cite text}
+#
+# cite HTML element.
+#|#
 ${define cite
     <cite>$1</cite>
 }
 
+#|######################################################################
+# ${del text [cite=text] [datetime=text]}
+#
+# del HTML element.
+#|#
 ${define del
-    <del${if $2 =~ cite=*} $2${endif}${if $3 =~ datetime=*} $3${endif}>$1</del>
+    <del${if $2 =~ *=*} $2${endif}${if $3 =~ *=*} $3${endif}>$1</del>
 }
 
+#|######################################################################
+# ${ins text [cite=text] [datetime=text]}
+#
+# ins HTML element.
+#|#
+${define ins
+    <ins${if $2 =~ *=*} $2${endif}${if $3 =~ *=*} $3${endif}>$1</ins>
+}
+
+#|######################################################################
+# ${dfn text}
+#
+# dfn HTML element.
+#|#
 ${define dfn
     <dfn>$1</dfn>
 }
 
-${define ins
-    <ins${if $2 =~ cite=*} $2${endif}${if $3 =~ datetime=*} $3${endif}>$1</ins>
-}
-
+#|######################################################################
+# ${kbd text [text] [text] [text]}
+#
+# kbd HTML element (up to 4 keys).
+#|#
 ${define kbd
-    <kbd>$1</kbd>${ifneq "$2" ""}+<kbd>$2</kbd>${endif}${ifneq "$3" ""}+<kbd>$3</kbd>${endif}${ifneq "$4" ""}+<kbd>$4</kbd>${endif}
+    <kbd>$1</kbd>${
+    ifneq "$2" ""}+<kbd>$2</kbd>${endif}${
+    ifneq "$3" ""}+<kbd>$3</kbd>${endif}${
+    ifneq "$4" ""}+<kbd>$4</kbd>${endif}
 }
 
+#|######################################################################
+# ${samp text}
+#
+# samp HTML element.
+#|#
 ${define samp
     <samp>$1</samp>
 }
 
+#|######################################################################
+# ${small text}
+#
+# small HTML element.
+#|#
 ${define small
     <small>$1</small>
 }
 
+#|######################################################################
+# ${span text [class=text]}
+#
+# span HTML element.
+#|#
 ${define span
-    <span${if $2 =~ class=*} $2${endif}>$1</span>
+    <span${if $2 =~ *=*} $2${endif}>$1</span>
 }
 
+#|######################################################################
+# ${tt text}
+#
+# tt HTML element.
+#|#
 ${define tt
     <tt>$1</tt>
 }
 
+#|######################################################################
+# ${var text}
+#
+# var HTML element.
+#|#
 ${define var
     <var>$1</var>
 }
 
+#|######################################################################
+# ${q text [cite=text]}
+#
+# q HTML element.
+#|#
 ${define q
-    <q${if $2 =~ cite=*} $2${endif}>$1</q>
+    <q${if $2 =~ *=*} $2${endif}>$1</q>
 }
 
 ${endif} #| ${ifndef __html__} |#
