@@ -9,12 +9,22 @@ ${define __html__}
 ${mode quote}
 
 #|######################################################################
-# ${small_caps text}
+# ${address line...}
 #
-# Expand to an HTML/CSS small caps.
+# address HTML element.
 #|#
-${define ${small_caps text}
-    <span style='font-variant:small-caps;'>${text}</span>
+${define address
+<address>
+${ifneq "$1" ""}$1${endif}&
+${ifneq "$2" ""}<br />${NL}$2${endif}&
+${ifneq "$3" ""}<br />${NL}$3${endif}&
+${ifneq "$4" ""}<br />${NL}$4${endif}&
+${ifneq "$5" ""}<br />${NL}$5${endif}&
+${ifneq "$6" ""}<br />${NL}$6${endif}&
+${ifneq "$7" ""}<br />${NL}$7${endif}&
+${ifneq "$8" ""}<br />${NL}$8${endif}&
+${ifneq "$9" ""}<br />${NL}$9${endif}
+</address>
 }
 
 #|######################################################################
@@ -45,7 +55,7 @@ ${define cite
 }
 
 #|######################################################################
-# ${del text [cite=text] [datetime=text]}
+# ${del text [title=text] [datetime=ISOdt]}
 #
 # del HTML element.
 #|#
@@ -54,7 +64,7 @@ ${define del
 }
 
 #|######################################################################
-# ${ins text [cite=text] [datetime=text]}
+# ${ins text [title=text] [datetime=ISOdt]}
 #
 # ins HTML element.
 #|#
@@ -72,7 +82,7 @@ ${define dfn
 }
 
 #|######################################################################
-# ${kbd text [text] [text] [text]}
+# ${kbd key [key2] [key3] [key4]}
 #
 # kbd HTML element (up to 4 keys).
 #|#
@@ -99,6 +109,15 @@ ${define samp
 #|#
 ${define small
     <small>$1</small>
+}
+
+#|######################################################################
+# ${small_caps text}
+#
+# Expand to an HTML/CSS small caps.
+#|#
+${define ${small_caps text}
+    <span style='font-variant:small-caps;'>${text}</span>
 }
 
 #|######################################################################
