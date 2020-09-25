@@ -38,7 +38,7 @@ ${define expand
 # Send MPP the TERM signal.
 #|#
 ${define halt 
-    ${exec kill -s TERM $PID}
+    ${exec kill -s TERM ${PID}}
 }
 
 #|######################################################################
