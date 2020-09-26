@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # impp - Interactive Markdown preprocessor
-
 case $TERM in
 	linux|xterm*|screen*)
 		echo -en '\e[0m\e[1;1H\e[2J'
@@ -20,7 +19,7 @@ echo "Welcome to MPP 0.1"
 echo
 
 # Simple interface
-exec rlwrap --pass-sigint-as-sigterm "${0%impp}mpp" "$@"
+#exec rlwrap --pass-sigint-as-sigterm "${0%impp}mpp" "$@"
 
 # With prompt
 PROMPT='#>> '

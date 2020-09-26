@@ -2,16 +2,17 @@
 
 # mpp - Markdown preprocessor
 
-readonly PRELUDE="share/prelude.mpp"
-readonly INCLUDE="./share"
+readonly DATADIR="/usr/local/share/MPP"
+readonly PRELUDE="$DATADIR/prelude.mpp"
 readonly ENVIRON="-DUID=$UID -DHOME=$HOME -DPWD='$PWD' -DLANG=$LANG -DPID=$$"
 
+# Must be "exec" to recycle the PID!
 exec gpp \
     -U '${\W' '\W}' '\B' '\B' '\W}' '{' '}' '$' '' \
     +sccc '#|' '|#' ''          \
     +sccc '&\n' '' ''           \
     --warninglevel 2            \
-    --nostdinc -I "$INCLUDE"    \
+    --nostdinc -I "$DATADIR"    \
     --include "$PRELUDE"        \
     $ENVIRON -DNL="\n"          \
     -x -m "$@"

@@ -6,14 +6,12 @@
 # 	prefix
 # 	bindir
 # 	datadir
-# 	mandir
 
-PROJECT := jqt
+PROJECT := MPP
 
 prefix	?= /usr/local
 bindir	?= $(prefix)/bin
 datadir	?= $(prefix)/share
-mandir	?= $(prefix)/share/man
 
 ########################################################################
 # Prerequisites
@@ -77,16 +75,71 @@ SHELL := /bin/bash
 print-%: ; @echo $* = $($*)
 
 ########################################################################
+# Install `MPP` dependencies
+#
+# Warning: only with `dnf`!
+# Modify this rule as a template to your own script.
+########################################################################
+
+.PHONY: setup
+
+setup:
+	@rpm -q --quiet general-purpose-preprocessor || \
+		sudo dnf -y install general-purpose-preprocessor
+	@rpm -q --quiet rlwrap || \
+		sudo dnf -y install rlwrap
+	@echo Done!
+
+########################################################################
+# Install scripts and data
+#
+# Must by root.
+########################################################################
+
+.PHONY: install uninstall
+
+install:
+	install --directory $(bindir) $(datadir) $(datadir)/$(PROJECT)
+	install --verbose --compare --mode 555 impp mpp $(bindir)
+	install --verbose --compare --mode 644 share/* $(datadir)/$(PROJECT)
+
+uninstall:
+	rm --verbose --force -- $(bindir)/impp $(bindir)/mpp
+	test -d $(datadir)/$(PROJECT)				  \
+	&& rm --verbose --force --recursive $(datadir)/$(PROJECT) \
+	|| true
+
+########################################################################
+# Show targets
+########################################################################
+
+.PHONY: list
+
+list:
+	echo 'Usage: make TARGET [parameter=value...]'
+	echo 'Targets:';					\
+	$(MAKE) --print-data-base --just-print 2>&1		\
+	| grep -v '^[mM]akefile'				\
+	| awk '/^[^ \t.%][-A-Za-z0-9_]*:/ { print $$1 }'	\
+	| sort --unique						\
+	| sed 's/:\+$$//'					\
+	| pr --omit-pagination --indent=4 --width=80 --columns=4
+	echo 'Default parameters:';				\
+	echo '    prefix    = $(prefix)';			\
+	echo '    bindir    = $(bindir)';			\
+	echo '    datadir   = $(datadir)';			\
+
+########################################################################
 # Tests
 ########################################################################
 
+.PHONY: .header test-mpmd
+
 clean: ; rm -f tests/generated/*
 
-.PHONY: header test-mpmd
+all: .header test-mpmd
 
-all: header test-mpmd
-
-header:
+.header:
 	@echo =========================
 	@echo Macro Processing Markdown 
 	@echo =========================
@@ -94,7 +147,7 @@ header:
 # Run one example
 test-mpmd-%.md:
 	echo "==> $(subst test-,,$(basename $@))"
-	./mpp < tests/$(subst test-,,$@) > tests/generated/$(subst test-,,$@)
+	mpp < tests/$(subst test-,,$@) > tests/generated/$(subst test-,,$@)
 	diff tests/expected/$(subst test-,,$@) tests/generated/$(subst test-,,$@)
 
 # Run one example named without file suffix
