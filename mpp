@@ -2,19 +2,34 @@
 
 # mpp - Markdown preprocessor
 
-readonly DATADIR="/usr/local/share/MPP"
-readonly PRELUDE="$DATADIR/prelude.mpp"
-readonly ENVIRON="-DUID=$UID -DHOME=$HOME -DPWD='$PWD' -DLANG=$LANG -DPID=$$"
+readonly PROJECT='MPP'
+readonly DATADIR="/usr/local/share"
+readonly PRELUDE="$DATADIR/$PROJECT/prelude.mpp"
+
+# Command line
+while getopts h opt; do
+    case $opt in
+        h)  echo 'NOT IMPLEMENTED!'
+            exit 1
+            ;;
+    esac
+done
 
 # Must be "exec" to recycle the PID!
 exec gpp \
     -U '${\W' '\W}' '\B' '\B' '\W}' '{' '}' '$' '' \
-    +sccc '#|' '|#' ''          \
-    +sccc '&\n' '' ''           \
-    --warninglevel 2            \
-    --nostdinc -I "$DATADIR"    \
-    --include "$PRELUDE"        \
-    $ENVIRON -DNL="\n"          \
-    -x -m "$@"
+    +sccc '#|' '|#' '' \
+    +sccc '&\n' '' '' \
+    -x \
+    -m \
+    --nostdinc \
+    -DHOME="$HOME" \
+    -DNL="\n" \
+    -DPID="$$" \
+    -DPWD="$PWD" \
+    -DUID="$UID" \
+    -I "$DATADIR/$PROJECT" \
+    --include "$PRELUDE" \
+    "$@"
 
 # vim:ts=4:sw=4:ai:et:fileencoding=utf-8:syntax=sh

@@ -1,5 +1,9 @@
+Commands
+========================================================================
 
-VERSION, bump-version
+- [] \*mpp: add --help -h options, usage message
+- [] \*mpp: add --version -V options
+- [] VERSION, bump-version
 
 API
 ========================================================================
@@ -66,3 +70,4 @@ Parametrized URLs
 
 ${define google https://www.google.com/search?q=$1}
 ${google search+term+words}
+
