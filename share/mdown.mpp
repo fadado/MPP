@@ -21,6 +21,19 @@ ${define defcount
 }
 
 #|######################################################################
+# ${partial file arg...}
+#
+# Like include but passing (up to 8) parameters to the included file.
+#|#
+${define partial
+    ${defeval __partial
+        ~${defeval __partial
+            ~${mode quote}~${include $1}~${mode quote "~"}}
+    }${__partial}${__partial $2 $3 $4 $5 $6 $7 $8 $9
+    }${undef __partial}
+}
+
+#|######################################################################
 # ${source filename syntax}
 #
 # Create a source block with (not expanded) file contents

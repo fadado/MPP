@@ -1,7 +1,8 @@
 #!/bin/sh
 
-# mpp - Markdown preprocessor
+# mpp -- Markdown preprocessor
 
+# Constants
 readonly PROJECT='MPP'
 readonly DATADIR="/usr/local/share"
 readonly PRELUDE="$DATADIR/$PROJECT/prelude.mpp"
@@ -26,7 +27,6 @@ exec gpp \
     -DHOME="$HOME" \
     -DNL="\n" \
     -DPID="$$" \
-    -DPWD="$PWD" \
     -DUID="$UID" \
     -I "$DATADIR/$PROJECT" \
     --include "$PRELUDE" \
