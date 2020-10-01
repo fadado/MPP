@@ -1,9 +1,10 @@
 Commands
 ========================================================================
 
-- [] \*mpp: add --help -h options, usage message
-- [] \*mpp: add --version -V options
-- [] VERSION, bump-version
+- [ ] mpp: filter ONLY allowed GPP options: -D, -I, etc.
+- [ ] mpp: add --help -h options, usage message
+- [ ] mpp: add --version -V options
+- [ ] VERSION, bump-version
 
 API
 ========================================================================

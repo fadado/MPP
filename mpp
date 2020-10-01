@@ -8,10 +8,13 @@ readonly DATADIR="/usr/local/share"
 readonly PRELUDE="$DATADIR/$PROJECT/prelude.mpp"
 
 # Command line
-while getopts h opt; do
+while getopts D:I:o:O:h opt; do
     case $opt in
+        D|I|O|o) ;; # accept
         h)  echo 'NOT IMPLEMENTED!'
             exit 1
+            ;;
+        *)  exit 1
             ;;
     esac
 done

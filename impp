@@ -5,10 +5,10 @@
 # CLS
 case $TERM in
 	linux|xterm*|screen*)
-		echo -en '\e[0m\e[1;1H\e[2J'
+		echo -n -e '\033[0m\033[1;1H\033[2J'
         ;;
 	*)
-		clear
+		type clear >/dev/null 2>&1 && clear
         ;;
 esac
 
@@ -19,7 +19,7 @@ echo '|_|_|_|  _|  _|'
 echo '      |_| |_|  '
 echo
 
-# Simple interface
+# Simple interface, more like TRAC
 #exec rlwrap --pass-sigint-as-sigterm "${0%impp}mpp" "$@"
 
 # With prompt
