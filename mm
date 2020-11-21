@@ -2,20 +2,29 @@
 
 # mm -- Markdown Maker
 
+shopt -s expand_aliases
+
+alias info='echo 1>&2'
+
 ########################################################################
 #
 ########################################################################
 
 declare -a FIND_ASSETS=(
-    -name '*.png' -or
-    -name '*.gif' -or
-    -name '*.pdf' -or
-    -name '*.jpg' -or
+    -type f
+    '!' -name '_*'
+    -name '*.png'   -o
+    -name '*.gif'   -o
+    -name '*.pdf'   -o
+    -name '*.jpg'   -o
     -name '*.jpeg'
 )
 declare -a FIND_PAGES=(
-    -name '*.md'  -or
-    -name '*.mkd' -or
+    -type f
+    '!' -name '_*'
+    -name '*.md'    -o
+    -name '*.mkd'   -o
+    -name '*.mdown' -o
     -name '*.markdown'
 )
 
@@ -28,36 +37,45 @@ function folders
     local src=$1 dst=$2 folder
 
     find "$src" "${FIND_PAGES[@]}" -or "${FIND_ASSETS[@]}"  |
-        sed -e "s/^$src//" -e 's/[^/]\+$//' -e '/^\/$/d'    \
-            -e "s/^/$dst/"                                  |
+        sed -e "s/^$src//;s/[^/]\+$//;/^\/$/d;s/^/$dst/"    |
         sort -ru                                            |
         while read -r folder; do
-            [[ -d "$folder" ]] || mkdir -vp "$folder"
+            test -d "$folder" || mkdir -p "$folder"
         done
-    [[ -d "$dst" ]] || mkdir -vp "$dst"
-    return
+    test -d "$dst" || mkdir -p "$dst"
 }
 
 function assets
 {
-    local src=$1 dst=$2 asset
+    local src=$1 dst=$2 asset target
 
     find "$src" "${FIND_ASSETS[@]}" |
         while read -r asset; do
-            cp -vu "$asset" "$dst${asset#$src}"
+            target="$dst${asset#$src}"
+            test "$target" -nt "$asset" || {
+                info "$asset => $target"
+                cp "$asset" "$target"
+            }
         done
-    return
 }
 
 function pages
 {
-    local src=$1 dst=$2 page
-    return
+    local src=$1 dst=$2 page target
+
+    find "$src" "${FIND_PAGES[@]}" |
+        while read -r page; do
+            target="$dst${page#$src}"
+            test "$target" -nt "$page" || {
+                info "$page => $target"
+                mpp -I"$src" < "$page" > "$target"
+            }
+        done
 }
 
 function publish
 {
-    folders "$@" && assets "$@" && pages "$@"
+    folders "$@"; assets "$@"; pages "$@"
 }
 
 ########################################################################
@@ -69,9 +87,9 @@ if (( $# == 0 )); then
         publish "$d" "${d#_}"
     done
 else
-    for d in $*; do
+    for d in "$@"; do
         [[ -d "_$d" ]] || {
-            echo 1>&2 "Directory _$d expected to exist"
+            info "Directory _$d expected to exist"
             exit 1
         }
         publish "_$d" "$d"
