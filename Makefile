@@ -100,11 +100,11 @@ setup:
 
 install:
 	install --directory $(bindir) $(datadir) $(datadir)/$(PROJECT)
-	install --verbose --compare --mode 555 impp mpp $(bindir)
+	install --verbose --compare --mode 555 mm impp mpp $(bindir)
 	install --verbose --compare --mode 644 share/* $(datadir)/$(PROJECT)
 
 uninstall:
-	rm --verbose --force -- $(bindir)/impp $(bindir)/mpp
+	rm --verbose --force -- $(bindir)/{mm,impp,mpp}
 	test -d $(datadir)/$(PROJECT)				  \
 	&& rm --verbose --force --recursive $(datadir)/$(PROJECT) \
 	|| true

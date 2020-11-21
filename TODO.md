@@ -4,6 +4,7 @@ Commands
 - [ ] mpp: filter ONLY allowed GPP options: -D, -I, etc.
 - [ ] mpp: add --help -h options, usage message
 - [ ] mpp: add --version -V options
+- [ ] mm: add --help -h options, usage message
 - [ ] VERSION, bump-version
 
 API

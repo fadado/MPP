@@ -7,15 +7,15 @@
 ########################################################################
 
 declare -a FIND_ASSETS=(
-    -name '*.png' -o
-    -name '*.gif' -o
-    -name '*.pdf' -o
-    -name '*.jpg' -o
+    -name '*.png' -or
+    -name '*.gif' -or
+    -name '*.pdf' -or
+    -name '*.jpg' -or
     -name '*.jpeg'
 )
 declare -a FIND_PAGES=(
-    -name '*.md'  -o
-    -name '*.mkd' -o
+    -name '*.md'  -or
+    -name '*.mkd' -or
     -name '*.markdown'
 )
 
@@ -27,28 +27,31 @@ function folders
 {
     local src=$1 dst=$2 folder
 
-    cd "$src"
-    find . "${FIND_PAGES[@]}" -or "${FIND_ASSETS[@]}"   |
-        sed -e 's/^\.//' -e 's/[^/]\+$//' -e '/^\/$/d'  |
-        sort -u                                         |
+    find "$src" "${FIND_PAGES[@]}" -or "${FIND_ASSETS[@]}"  |
+        sed -e "s/^$src//" -e 's/[^/]\+$//' -e '/^\/$/d'    \
+            -e "s/^/$dst/"                                  |
+        sort -ru                                            |
         while read -r folder; do
-            folder="../$dst$folder"
-            [[ -d "$folder" ]] || mkdir -p "$folder"
+            [[ -d "$folder" ]] || mkdir -vp "$folder"
         done
-    cd $OLDPWD
-    [[ -d "$dst" ]] || mkdir -p "$dst"
+    [[ -d "$dst" ]] || mkdir -vp "$dst"
     return
 }
 
 function assets
 {
-    local src=$1 dst=$2 folder
+    local src=$1 dst=$2 asset
+
+    find "$src" "${FIND_ASSETS[@]}" |
+        while read -r asset; do
+            cp -vu "$asset" "$dst${asset#$src}"
+        done
     return
 }
 
 function pages
 {
-    local src=$1 dst=$2 folder
+    local src=$1 dst=$2 page
     return
 }
 
