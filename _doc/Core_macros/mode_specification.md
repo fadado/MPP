@@ -4,8 +4,8 @@
 
 
 ${ifdef EditorNotes}
-* 1
-* 2
+* Document only here.
+* Extension mecanism, not to normal use,
 ${endif}&
 
 <!--

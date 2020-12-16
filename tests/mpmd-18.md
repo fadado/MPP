@@ -1,4 +1,4 @@
-${import mdown}&
+${import io}&
 Python example:
 
 ${source tests/hello.py python}

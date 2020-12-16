@@ -5,7 +5,7 @@
 # Constants
 readonly PROJECT='MPP'
 readonly DATADIR="/usr/local/share"
-readonly PRELUDE="$DATADIR/$PROJECT/prelude.mpp"
+readonly PRELUDE="$DATADIR/$PROJECT/_prelude.mpp"
 
 # Command line
 while getopts D:I:o:O:h opt; do
@@ -28,6 +28,7 @@ exec gpp \
     -m \
     --nostdinc \
     -DHOME="$HOME" \
+    -DHT="\t" \
     -DNL="\n" \
     -DPID="$$" \
     -DUID="$UID" \

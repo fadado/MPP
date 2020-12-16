@@ -15,16 +15,18 @@ ${mode quote}
 #|#
 
 #|######################################################################
-# ${concat filename}
+# ${source filename syntax}
 #
-# Like include but without macro expansion.
+# Create a source block with (not expanded) file contents
 #|#
-${define ${concat filename}
-    ${exec cat '${filename}'}
+${define ${source filename syntax}
+```${syntax}
+${exec cat '${filename}'}
+```
 }
 
 #|######################################################################
-# ${print text}
+# ${print [text]}
 #
 # Output one line of text using the predefined macro $NL.
 #|#

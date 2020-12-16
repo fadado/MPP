@@ -1,0 +1,57 @@
+#|######################################################################
+# MPP prelude file
+# Imported automatically.
+# Note: this file must not generate any output.
+#####################################################################|#&
+#| Predefined skips:
+    * Comments like this
+    * Escaped newlines as at this comment end
+#|#&
+#| Predefined macros:
+    * HOME="$HOME"
+    * HT="\t"
+    * NL="\n"
+    * PID="$$"
+    * UID="$UID"
+#|#&
+#| Modify the global mode |#&
+${mode pop}&
+#| Markdown skips:
+    * HTML comments
+    * code spans
+    * fenced code blocks (GFM and Pandoc)
+#|#&
+${mode string iis "<!--" "-->" ""}&
+${mode string iis "`"  "`" ""}&
+${mode string iis "\n```" "\n```" ""}&
+${mode string iis "\n~~~" "\n~~~" ""}&
+#| User macro skips:
+    * single quotes in user-macro arguments
+    * double quotes in user-macro arguments
+#|#&
+${mode string iqi "'" "'" ""}&
+${mode string iQi "\"" "\"" ""}&
+#| Quoted text:
+    * quoted text block
+#|#&
+${mode string qqq "#<" ">#" ""}&
+#| Save global mode |#&
+${mode push}&
+#|######################################################################
+# ${import module}
+#
+# Include module.mpp with void expansion.
+# The quote character (~) is exported (only) to imported modules.
+#|#&
+${mode quote "~"}&
+${define ${import module}
+    ${defeval __import
+        ~${defeval __import ~${include ${module}.mpp}}
+    }${__import}${undef __import}
+}&
+${mode quote}&
+#| Import module with void expansion |#&
+${import prelude}&
+#|
+vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
+|#&
