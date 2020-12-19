@@ -1,5 +1,5 @@
 #| call repeat{N m a...} |#&
-${import io}&
+${define print $1${NL}}&
 ${import control}&
 ${repeat 10 print}&
 #|

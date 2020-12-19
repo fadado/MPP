@@ -3,12 +3,7 @@
 # Imported from _prelude.mpp
 ######################################################################|#
 
-#|######################################################################
-# ${id [text]}
-#
-# Useful equivalent to null (${id}) and identity (${id x}).
-#|#&
-${define id $1}
+${import control}
 
 #|######################################################################
 # ${defcount name start [increment]}
@@ -34,6 +29,30 @@ ${define partial
     }${__partial}${__partial $2 $3 $4 $5 $6 $7 $8 $9
     }${undef __partial}
 }
+
+#|######################################################################
+# Only for interactive mpp
+#|#
+${ifdef __IMPP__}
+
+#|######################################################################
+# ${print [text]}
+#
+# Output one line of text using the predefined macro $NL.
+#|#
+${define ${print text}
+    ${text}${NL}
+}
+
+#|######################################################################
+# ${read}
+#
+# Read one CR terminated line of text followed by EOF (^D on Unix, ^Z on
+# MSDOS derived shells).
+#|#
+${define read ${exec echo -n `cat`} }
+
+${endif}
 
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl

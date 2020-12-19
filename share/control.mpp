@@ -6,10 +6,19 @@
 ${ifndef __control__}
 ${define __control__}
 
-#| ...working ideas...
-${define isnull ${eval $1 == ${id}}}
-${define isnull ${eval "$1" == ""}}
-|#
+#|######################################################################
+# ${null [text]}
+#
+# The empty expansion.
+#|#&
+${define null}
+
+#|######################################################################
+# ${id text}
+#
+# Equivalent to null (${id}) and identity (${id x}).
+#|#&
+${define id $1}
 
 #|######################################################################
 # ${call name arg...}

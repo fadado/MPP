@@ -20,7 +20,7 @@ echo '      |_| |_|  '
 echo
 
 # Simple interface, more like TRAC
-#exec rlwrap --pass-sigint-as-sigterm "${0%impp}mpp" "$@"
+exec rlwrap --pass-sigint-as-sigterm "${0%impp}mpp" -D__IMPP__ "$@"
 
 # With prompt
 PROMPT='#>> '
@@ -29,6 +29,8 @@ COLOUR=yellow
 exec rlwrap --pass-sigint-as-sigterm        \
             --prompt-colour="$COLOUR"       \
             --substitute-prompt="$PROMPT"   \
-            "${0%impp}mpp" "$@"
+            "${0%impp}mpp"                  \
+            -D__IMPP__                      \
+            "$@"
 
 # vim:ts=4:sw=4:ai:et:fileencoding=utf-8:syntax=sh

@@ -1,0 +1,26 @@
+#|######################################################################
+# Input/output utilities
+# Usage: ${import markdown}
+######################################################################|#
+
+${ifndef __markdown__}
+${define __markdown__}
+
+${mode quote}
+
+#|######################################################################
+# ${source filename syntax}
+#
+# Create a source block with (not expanded) file contents
+#|#
+${define ${source filename syntax}
+```${syntax}
+${exec cat '${filename}'}
+```
+}
+
+${endif} #| ${ifndef __markdown__} |#
+
+#|
+vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
+|#

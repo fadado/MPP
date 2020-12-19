@@ -1,4 +1,4 @@
-${import io}&
+${import markdown}&
 Python example:
 
 ${source tests/hello.py python}
