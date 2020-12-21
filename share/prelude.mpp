@@ -18,6 +18,17 @@ ${define counter
 }
 
 #|######################################################################
+ # ${defpart name file}
+ #
+ # Define name as a macro with contents of file as a body.
+#|#
+${define defpart
+    ${defeval __defpart
+        ~${defeval $1 ~${mode quote}~${include $2}~${mode quote "~"}}
+    }${__defpart}${undef __defpart}
+}
+
+#|######################################################################
 # ${partial file arg...}
 #
 # Like include but passing (up to 8) parameters to the included file.
