@@ -6,6 +6,17 @@
 ${import control}
 
 #|######################################################################
+# ${call name arg...}
+#
+# Call an user macro by name.
+#|#
+${define call
+    ${defeval __call
+       ~${ifdef $1}~${$1 '$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9'}~${endif}
+    }${__call}${undef __call}
+}
+
+#|######################################################################
 # ${counter name start [increment]}
 #
 # Define an integer generator from start by increment.
@@ -42,9 +53,15 @@ ${define partial
 }
 
 #|######################################################################
-# Only for interactive mpp
+ # ${set name expression}
+ #
+ # Assign to name the value of expression.
 #|#
-${ifdef __IMPP__}
+${define set
+    ${defeval __set
+        ~${defeval $1 ~${eval $2}}
+    }${__set}${undef __set}
+}
 
 #|######################################################################
 # ${print [text]}
@@ -54,6 +71,11 @@ ${ifdef __IMPP__}
 ${define ${print text}
     ${text}${NL}
 }
+
+#|######################################################################
+# Only for interactive mpp
+#|#
+${ifdef __IMPP__}
 
 #|######################################################################
 # ${read}

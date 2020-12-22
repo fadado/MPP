@@ -7,56 +7,12 @@ ${ifndef __control__}
 ${define __control__}
 
 #|######################################################################
-# ${null [text]}
-#
-# The empty expansion.
-#|#&
-${define null}
-
-#|######################################################################
-# ${id text}
-#
-# Equivalent to null (${id}) and identity (${id x}).
-#|#&
-${define id $1}
-
-#|######################################################################
-# ${call name arg...}
-#
-# Call an user macro by name.
-#|#
-${define call
-    ${defeval __call
-       ~${ifdef $1}~${$1 '$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9'}~${endif}
-    }${__call}${undef __call}
-}
-
-#|######################################################################
-# ${expand body arg...}
-#
-# Define and call an anonymous macro.
-#|#
-${define expand
-    ${defeval __expand $1
-    }${__expand $2 $3 $4 $5 $6 $7 $8 $9}${undef __expand}
-}
-
-#|######################################################################
 # ${halt}
 #
 # Send MPP the TERM signal.
 #|#
 ${define halt 
     ${exec kill -s TERM ${PID}}
-}
-
-#|######################################################################
-# ${iif test then [else]}
-#
-# Inline IF.
-#|#
-${define iif
-    ${if $1}$2${else}$3${endif}
 }
 
 #|######################################################################
@@ -83,6 +39,12 @@ ${defeval _repeat_step ~${_repeat '$1' '$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9'}}
 ${endif}&
 ${_repeat_step}
 }
+
+#|######################################################################
+# ${for i from to by text}
+#
+#|#
+
 
 ${endif} #| ${ifndef __control__} |#
 
