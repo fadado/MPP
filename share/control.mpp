@@ -41,7 +41,21 @@ ${_repeat_step}
 }
 
 #|######################################################################
-# ${for i from to by text}
+# ${while test text}
+#
+#|#
+${define while
+${set _while_test $1}&
+${if ${_while_test}}&
+${defeval _while_step $2~${while '$1' '$2'}}&
+${else}&
+${define _while_step}&
+${endif}&
+${_while_step}&
+}
+
+#|######################################################################
+# ${for name from to by text}
 #
 #|#
 
