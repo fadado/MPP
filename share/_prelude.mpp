@@ -10,7 +10,7 @@ Predefined syntax:
         + Short macro end sequence: '\W}'
         + Argument start sequence: '\B'
         + Argument separator: '\B'
-        + Macro end sequence: '\W}'
+        + Argument end sequence: '\W}'
         + Stacked characters: '{' '}'
         + Argument reference sequence: '$'
         + Quote character: ''
@@ -42,7 +42,7 @@ ${mode string iis "\n~~~" "\n~~~" ""}&
 #|#&
 ${mode string iqi "'" "'" ""}&
 ${mode string iQi "\"" "\"" ""}&
-${mode string iQi "<<\W" "\W>>" ""}&
+${mode string iqi "<<\W" "\W>>" ""}&
 #| Save global mode |#&
 ${mode push}&
 #|######################################################################
