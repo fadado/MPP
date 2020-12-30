@@ -17,9 +17,9 @@ ${define id $1}
  #
  # Assign to name the value of expression.
 #|#
-${define ${assign name expression}
+${define ${assign _name _expression}
     ${defeval __assign
-        ~${defeval ${name} ~${eval ${expression}}}
+        ~${defeval ${_name} ~${eval ${_expression}}}
     }${__assign}${undef __assign}
 }
 
@@ -30,7 +30,7 @@ ${define ${assign name expression}
 #|#
 ${define call
     ${defeval __call
-       ~${ifdef $1}~${$1 '$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9'}~${endif}
+       ~${ifdef $1}~${$1 <<$2>> <<$3>> <<$4>> <<$5>> <<$6>> <<$7>> <<$8>> <<$9>>}~${endif}
     }${__call}${undef __call}
 }
 
@@ -39,12 +39,12 @@ ${define call
 #
 # Define an integer generator from start by increment.
 #|#
-${define ${counter name start inc}
+${define ${counter _name _start _inc}
     ${defeval __counter
-        ~${define _${name}_ ${start}
-        }~${define ${name}
-            ~${_${name}_}~${assign _${name}_
-                "~${_${name}_} + ${ifeq ;${inc}; ;;}1${else}${inc}${endif}"}}
+        ~${define _${_name}_ ${_start}
+        }~${define ${_name}
+            ~${_${_name}_}~${assign _${_name}_
+                "~${_${_name}_} + ${ifeq ;${_inc}; ;;}1${else}${_inc}${endif}"}}
     }${__counter}${undef __counter}
 }
 
@@ -53,9 +53,9 @@ ${define ${counter name start inc}
  #
  # Define name as a macro with contents of file as a body.
 #|#
-${define ${defpart name file}
+${define ${defpart _name _file}
     ${defeval __defpart
-        ~${defeval ${name} ~${mode quote}~${include ${file}}~${mode quote "~"}}
+        ~${defeval ${_name} ~${mode quote}~${include ${_file}}~${mode quote "~"}}
     }${__defpart}${undef __defpart}
 }
 
@@ -77,8 +77,8 @@ ${define partial
 #
 # Output one line of text using the predefined macro $NL.
 #|#
-${define ${print text}
-    ${text}${NL}
+${define ${print _text}
+    ${_text}${NL}
 }
 
 #|######################################################################

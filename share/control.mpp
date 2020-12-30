@@ -36,7 +36,7 @@ ${define _repeat_step}&
 ${else}&
 ${call $2 ${_repeat_index} $3 $4 $5 $6 $7 $8 $9}&
 ${assign _repeat_index "${_repeat_index} + 1"}&
-${defeval _repeat_step ~${_repeat '$1' '$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9'}}&
+${defeval _repeat_step ~${_repeat <<$1>> <<$2>> <<$3>> <<$4>> <<$5>> <<$6>> <<$7>> <<$8>> <<$9>>}}&
 ${endif}&
 ${_repeat_step}&
 }
@@ -44,12 +44,12 @@ ${_repeat_step}&
 #|######################################################################
 # ${while test body}
 #
-# Can't nest whiles!
+# Iterate until test fails.
 #|#
-${define ${while test body}
-${defeval _while_test ${test}}&
+${define ${while _test _body}
+${defeval _while_test ${_test}}&
 ${if ${_while_test}}&
-${defeval _while_step ${body}~${while '${test}' '${body}'}}&
+${defeval _while_step ${_body}~${while <<${_test}>> <<${_body}>>}}&
 ${else}&
 ${define _while_step}&
 ${endif}&

@@ -40,8 +40,8 @@ ${mode string iis "\n~~~" "\n~~~" ""}&
     * double quotes in user-macro arguments
     * block experiments...
 #|#&
-${mode string iqi "'" "'" ""}&
 ${mode string iQi "\"" "\"" ""}&
+${mode string iqi "'" "'" ""}&
 ${mode string iqi "<<\W" "\W>>" ""}&
 #| Save global mode |#&
 ${mode push}&
@@ -52,9 +52,9 @@ ${mode push}&
 # The quote character (~) is exported (only) to imported modules.
 #|#&
 ${mode quote "~"}&
-${define ${import module}
+${define ${import _module}
     ${defeval __import
-        ~${defeval __import ~${include ${module}.mpp}}
+        ~${defeval __import ~${include ${_module}.mpp}}
     }${__import}${undef __import}
 }&
 ${mode quote}&
