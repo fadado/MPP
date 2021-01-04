@@ -59,12 +59,12 @@ ${_while_step}&
 #
 #|#
 ${define ${for _name _from _to _by _body}
-    ${assign ${_name} ${_from}
-    }${while '${call ${_name}} <= ${_to}'
-        '${_body}${assign ${_name} ${_name}+${_by}}'
+    ${defeval _for_body ${_body}
+    }${assign ${_name} ${_from}
+    }${while '${'${_name}'}<='${_to}
+        '${_for_body}${assign '${_name}' ${'${_name}'}+'${_by}'}'
     }
 }
-
 
 ${endif} #| ${ifndef __control__} |#
 
