@@ -3,13 +3,6 @@
 # XXXXXXXXXXXXXXXX
 
 
-#<...>#
-&
-<!-- -->
-literal text #< disabled evaluation >#
-...&
-
-
 ${ifdef EditorNotes}
 * 1
 * 2

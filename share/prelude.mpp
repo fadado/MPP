@@ -3,14 +3,9 @@
 # Imported from _prelude.mpp
 ######################################################################|#
 
-${import control}
-
 #|######################################################################
-# ${id [text]}
-#
-# Equivalent to null (${id}) and identity (${id x}).
-#|#&
-${define id $1}
+# MACRO DEFINITIONS
+######################################################################|#
 
 #|######################################################################
  # ${assign name expression}
@@ -52,6 +47,7 @@ ${define ${counter _name _start _inc}
  # ${defpart name file}
  #
  # Define name as a macro with contents of file as a body.
+ # Equivalent to: ${defeval name ${include file}}
 #|#
 ${define ${defpart _name _file}
     ${defeval __defpart
@@ -60,9 +56,21 @@ ${define ${defpart _name _file}
 }
 
 #|######################################################################
+# TEXT SUBSTITUTION
+######################################################################|#
+
+#|######################################################################
+# ${id [text]}
+#
+# Equivalent to null (${id}) and identity (${id x}).
+#|#&
+${define id $1}
+
+#|######################################################################
 # ${partial file arg...}
 #
 # Like include but passing (up to 8) parameters to the included file.
+# Equivalent to: ${defpart _ file}${_ arg...}${undef _}
 #|#
 ${define partial
     ${defeval __partial
@@ -82,8 +90,72 @@ ${define ${print _text}
 }
 
 #|######################################################################
-# Only for interactive mpp
+# CONTROL FLOW
+######################################################################|#
+
+#|######################################################################
+# ${halt}
+#
+# Send MPP the TERM signal.
 #|#
+${define halt 
+    ${exec kill -s TERM ${PID}}
+}
+
+#|######################################################################
+# ${repeat N name arg...}
+#
+# Call N times an user macro by name.
+#
+# First argument to macro name is the loop index (1..N).
+#|#
+${define repeat
+    ${_repeat 1 $1 $2 $3 $4 $5 $6 $7 $8}
+}
+
+#| _repeat{i N name arg...} |#
+${define _repeat
+${if $1 > $2}&
+${define _repeat_step}&
+${else}&
+${call $3 $1 $4 $5 $6 $7 $8 $9}&
+${defeval _repeat_step
+    ~${_repeat ${eval $1+1} $2 $3 <<$4>> <<$5>> <<$6>> <<$7>> <<$8>> <<$9>>}}&
+${endif}&
+${_repeat_step}&
+}
+
+#|######################################################################
+# ${while test body}
+#
+# Iterate until test fails.
+#|#
+${define ${while _test _body}
+${defeval _while_test ${_test}}&
+${if ${_while_test}}&
+${defeval _while_step
+    ${_body}~${while <<${_test}>> <<${_body}>>}}&
+${else}&
+${define _while_step}&
+${endif}&
+${_while_step}&
+}
+
+#|######################################################################
+# ${for name from to by body}
+#
+#|#
+${define ${for _name _from _to _by _body}
+    ${defeval _for_body ${_body}
+    }${assign ${_name} ${_from}
+    }${while '${'${_name}'}<='${_to}
+        '${_for_body}${assign '${_name}' ${'${_name}'}+'${_by}'}'
+    }
+}
+
+#|######################################################################
+# INTERACTIVE MPP
+######################################################################|#
 ${ifdef __IMPP__}
 
 #|######################################################################
