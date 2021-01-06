@@ -1,16 +1,31 @@
-#|######################################################################
-# Prelude macros
-# Imported from _prelude.mpp
-######################################################################|#
+#|
+MPP prelude file (2)
+====================
+
+This file is imported from `_prelude.mpp`.
+
+MACRO DEFINITION FACILITIES
+---------------------------
+
+Meta macros:
+
+* ${define name text}
+* ${defeval name text}
+* ${undef name}
+
+User macros:
+
+* ${assign name expression}
+* ${call name arg...}
+* ${counter name start [increment]}
+* ${defpart name file}
+* ${import module}
+#|#
 
 #|######################################################################
-# MACRO DEFINITIONS
-######################################################################|#
-
-#|######################################################################
- # ${assign name expression}
- #
- # Assign to name the value of expression.
+# ${assign name expression}
+#
+# Assign to name the value of expression.
 #|#
 ${define ${assign _name _expression}
     ${defeval __assign
@@ -55,43 +70,37 @@ ${define ${defpart _name _file}
     }${__defpart}${undef __defpart}
 }
 
-#|######################################################################
-# TEXT SUBSTITUTION
-######################################################################|#
+#|
+CONTROL FLOW FACILITIES
+-----------------------
 
-#|######################################################################
-# ${id [text]}
-#
-# Equivalent to null (${id}) and identity (${id x}).
-#|#&
-${define id $1}
+Meta macros:
 
-#|######################################################################
-# ${partial file arg...}
-#
-# Like include but passing (up to 8) parameters to the included file.
-# Equivalent to: ${defpart _ file}${_ arg...}${undef _}
+* ${ifdef name}
+* ${ifndef name}
+* ${ifeq text1 text2}
+* ${ifneq text1 text2}
+* ${if test}
+* ${elif test}
+* ${else}
+* ${endif}
+
+User macros:
+
+* ${for name from to by body}
+* ${halt}
+* ${repeat N name arg...}
+* ${while test body}
+
+Eval expressions in `if` test:
+
+* C integer arithmetic operators
+* C bitwise operators
+* C logical and relational operators
+* Wildcard matching
+* ${defined name}
+* length(text)
 #|#
-${define partial
-    ${defeval __partial
-        ~${defeval __partial
-            ~${mode quote}~${include $1}~${mode quote "~"}}
-    }${__partial}${__partial $2 $3 $4 $5 $6 $7 $8 $9
-    }${undef __partial}
-}
-
-#|######################################################################
-# ${print [text]}
-#
-# Output one line of text using the predefined macro $NL.
-#|#
-${define ${print _text}
-    ${_text}${NL}
-}
-
-#|######################################################################
-# CONTROL FLOW
-######################################################################|#
 
 #|######################################################################
 # ${halt}
@@ -128,7 +137,8 @@ ${_repeat_step}&
 #|######################################################################
 # ${while test body}
 #
-# Iterate until test fails.
+# Iterate while test succeeds.
+# Warning: nestable?
 #|#
 ${define ${while _test _body}
 ${defeval _while_test ${_test}}&
@@ -144,18 +154,93 @@ ${_while_step}&
 #|######################################################################
 # ${for name from to by body}
 #
+# Warning: `name` becomes a global macro.
+# Warning: nestable?
 #|#
 ${define ${for _name _from _to _by _body}
-    ${defeval _for_body ${_body}
-    }${assign ${_name} ${_from}
-    }${while '${'${_name}'}<='${_to}
-        '${_for_body}${assign '${_name}' ${'${_name}'}+'${_by}'}'
+    ${assign ${_name} ${_from}
+    }${_for
+        '${'${_name}'}<='${_to}
+        ${_body}
+        '${assign '${_name}' ${'${_name}'}+'${_by}'}'
     }
 }
 
+${define ${_for _test _body _next}
+${defeval _for_test ${_test}}&
+${if ${_for_test}}&
+${defeval _for_step ${_body}${_next}~${_for <<${_test}>> <<${_body}>> <<${_next}>>}}&
+${else}&
+${define _for_step}&
+${endif}&
+${_for_step}&
+}
+
+#|
+TEXT SUBSTITUTION FACILITIES
+----------------------------
+
+Meta macros:
+
+* ${date format}
+* ${eval expression}
+* ${exec command}
+* ${include file}
+
+User macros:
+
+* ${id [text]}
+* ${partial file arg...}
+* ${print [text]}
+#|#
+
 #|######################################################################
-# INTERACTIVE MPP
-######################################################################|#
+# ${id [text]}
+#
+# Equivalent to null (${id}) and identity (${id x}).
+#|#&
+${define id $1}
+
+#|######################################################################
+# ${partial file arg...}
+#
+# Like include but passing (up to 8) parameters to the included file.
+# Equivalent to: ${defpart _ file}${_ arg...}${undef _}
+#|#
+${define partial
+    ${defeval __partial
+        ~${defeval __partial
+            ~${mode quote}~${include $1}~${mode quote "~"}}
+    }${__partial}${__partial $2 $3 $4 $5 $6 $7 $8 $9
+    }${undef __partial}
+}
+
+#|######################################################################
+# ${print [text]}
+#
+# Output one line of text using the predefined macro $NL.
+#|#
+${define ${print _text}
+    ${_text}${NL}
+}
+
+#|
+DIAGNOSTIC FACILITIES
+---------------------
+
+Meta macros:
+
+* ${file}
+* ${line}
+* ${error text}
+* ${warning text}
+
+INTERACTIVE MPP
+---------------
+
+Like TRAC?
+
+#|#
 ${ifdef __IMPP__}
 
 #|######################################################################
@@ -170,4 +255,4 @@ ${endif}
 
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
-|#
+#|#

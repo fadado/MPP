@@ -1,50 +1,73 @@
-#|######################################################################
-# MPP prelude file
-# Imported automatically.
-# Note: this file must not generate any output.
-#####################################################################|#&
-#| 
+#|
+MPP prelude file (1)
+====================
+
+Note: this file must not generate any output.
+
+INHERITED DEFAULTS
+------------------
+
+Command-line switches and options used when calling `gpp`.
+
 Predefined syntax:
-    * -U '${\W' '\W}' '\B' '\B' '\W}' '{' '}' '$' ''
-        + Macro start sequence: '${\W'
-        + Short macro end sequence: '\W}'
-        + Argument start sequence: '\B'
-        + Argument separator: '\B'
-        + Argument end sequence: '\W}'
-        + Stacked characters: '{' '}'
-        + Argument reference sequence: '$'
-        + Quote character: ''
+
+* -U '${\W' '\W}' '\B' '\B' '\W}' '{' '}' '$' ''
+    + Macro start sequence: '${\W'
+    + Short macro end sequence: '\W}'
+    + Argument start sequence: '\B'
+    + Argument separator: '\B'
+    + Argument end sequence: '\W}'
+    + Stacked characters: '{' '}'
+    + Argument reference sequence: '$'
+    + Quote character: ''
+
 Predefined skips (warning: fake '|' to cheat `gpp`):
-    * +sccc '#¦' '¦#' ''
-    * +sccc '&\n' '' ''
+
+* +sccc '#¦' '¦#' ''
+* +sccc '&\n' '' ''
+
 Predefined macros:
-    * -DHOME="$HOME"
-    * -DHT="\t"
-    * -DNL="\n"
-    * -DPID="$$"
-    * -DUID="$UID"
+
+* -DHOME="$HOME"
+* -DHT="\t"
+* -DNL="\n"
+* -DPID="$$"
+* -DUID="$UID"
 #|#&
-#| Modify the global mode |#&
-${mode pop}&
-#| Markdown skips:
-    * HTML comments
-    * code spans
-    * fenced code blocks (GFM and Pandoc)
+#| Start global mode edition |#&
+${mode restore}&
+#|
+SKIPS
+-----
+
+Markdown skips:
+
+* HTML comments
+* code spans
+* fenced code blocks (GFM and Pandoc)
 #|#&
 ${mode string iis "<!--" "-->" ""}&
 ${mode string iis "`"  "`" ""}&
 ${mode string iis "\n```" "\n```" ""}&
 ${mode string iis "\n~~~" "\n~~~" ""}&
-#| User macro skips (not for meta macros):
-    * single quotes in user-macro arguments
-    * double quotes in user-macro arguments
-    * block experiments...
+#|
+User macro skips (not for meta macros):
+
+* single quotes in user-macro arguments
+* double quotes in user-macro arguments
+* MPP code block
 #|#&
 ${mode string iQi "\"" "\"" ""}&
 ${mode string iqi "'" "'" ""}&
 ${mode string iqi "<<\W" "\W>>" ""}&
-#| Save global mode |#&
-${mode push}&
+#| End global mode edition |#&
+${mode save}&
+#|
+MACROS
+------
+
+Define `import` and use it to bootstrap the rest of prelude macros.
+#|#&
 #|######################################################################
 # ${import module}
 #
@@ -62,4 +85,4 @@ ${mode quote}&
 ${import prelude}&
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
-|#&
+#|#&

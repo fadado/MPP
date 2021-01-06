@@ -1,7 +1,9 @@
-#|######################################################################
-# HTML macros
-# Usage: ${import html}
-######################################################################|#
+#|
+HTML macros
+===========
+
+Usage: ${import html}
+#|#
 
 ${ifndef __html__}
 ${define __html__}
@@ -160,4 +162,4 @@ ${endif} #| ${ifndef __html__} |#
 
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
-|#
+#|#

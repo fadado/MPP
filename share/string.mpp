@@ -1,7 +1,9 @@
-#|######################################################################
-# String utilities
-# Usage: ${import string}
-######################################################################|#
+#|
+String utilities
+================
+
+Usage: ${import string}
+#|#
 
 ${ifndef __string__}
 ${define __string__}
@@ -47,4 +49,4 @@ ${endif} #| ${ifndef __string__} |#
 
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
-|#
+#|#

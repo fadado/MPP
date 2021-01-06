@@ -1,7 +1,9 @@
-#|######################################################################
-# Mathematical macros
-# Usage: ${import math}
-######################################################################|#
+#|
+Mathematical macros
+===================
+
+Usage: ${import math}
+#|#
 
 ${ifndef __math__}
 ${define __math__}
@@ -79,4 +81,4 @@ ${endif} #| ${ifndef __math__} |#
 
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
-|#
+#|#

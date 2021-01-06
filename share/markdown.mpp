@@ -1,7 +1,9 @@
-#|######################################################################
-# Input/output utilities
-# Usage: ${import markdown}
-######################################################################|#
+#|
+Markdown utilities
+==================
+
+Usage: ${import markdown}
+#|#
 
 ${ifndef __markdown__}
 ${define __markdown__}
@@ -23,4 +25,4 @@ ${endif} #| ${ifndef __markdown__} |#
 
 #|
 vim:ts=4:sw=4:ai:et:fileencoding=utf8:syntax=perl
-|#
+#|#
